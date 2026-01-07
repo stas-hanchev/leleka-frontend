@@ -1,10 +1,12 @@
-'use client'
+'use client';
 
-import css from './SignUpPage.module.css';
+import RegisterForm from '@/components/auth/Register/RegisterForm';
+import styles from './SignUpPage.module.css';
 
-const Register = () => {
-    return (
-        <main></main>
-    )
+export default function SignUpPage() {
+  return (
+    <main className={styles.main}>
+      <RegisterForm />
+    </main>
+  );
 }
-export default Register

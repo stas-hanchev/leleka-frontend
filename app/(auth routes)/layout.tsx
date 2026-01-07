@@ -1,11 +1,11 @@
 'use client';
 
-// import { useEffect, useState } from 'react';
-// import { useRouter } from 'next/navigation';
+import { ReactNode } from 'react';
 
-// type Props = {
-//     children: React.ReactNode;
-// };
+type Props = {
+  children: ReactNode;
+};
 
-export default function PublicLayout(/*{ children }: Props*/) {
+export default function Layout({ children }: Props) {
+  return <div>{children}</div>;
 }
