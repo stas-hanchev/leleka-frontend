@@ -1,10 +1,17 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './RegisterForm.module.css';
+import toast from 'react-hot-toast';
+
+interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+}
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Обов'язкове поле"),
@@ -16,6 +23,40 @@ const validationSchema = Yup.object({
 
 export default function RegisterForm() {
   const router = useRouter();
+
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting }: FormikHelpers<FormValues>
+  ) => {
+    setSubmitting(true);
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 201) {
+        toast.success('Реєстрація успішна 🎉');
+        router.push('/profile/edit');
+      } else if (res.status === 409) {
+        toast.error('Цей email вже зареєстрований');
+      } else {
+        toast.error(data.error || 'Помилка реєстрації');
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('Помилка реєстрації');
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section className={styles.wrapper}>
@@ -36,12 +77,11 @@ export default function RegisterForm() {
 
           <div className={styles.formCont}>
             <h1 className={styles.title}>Реєстрація</h1>
+
             <Formik
               initialValues={{ name: '', email: '', password: '' }}
               validationSchema={validationSchema}
-              onSubmit={() => {
-                router.push('/profile/edit');
-              }}
+              onSubmit={handleSubmit}
             >
               {({ isSubmitting }) => (
                 <Form className={styles.form}>
