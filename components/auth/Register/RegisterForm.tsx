@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './RegisterForm.module.css';
 import toast from 'react-hot-toast';
+import { useAuthStore } from '@/lib/store/authStore';
 
 interface FormValues {
   name: string;
@@ -22,6 +23,7 @@ const validationSchema = Yup.object({
 });
 
 export default function RegisterForm() {
+  const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter();
 
   const handleSubmit = async (
@@ -38,6 +40,11 @@ export default function RegisterForm() {
       });
 
       const data = await res.json();
+      const name = data.name;
+      const email = data.email;
+      const avatarURL = data.avatarURL;
+      setUser({ name, email, avatarURL })
+      console.log('User: ', { name, email, avatarURL});
 
       if (res.status === 201) {
         toast.success('Реєстрація успішна 🎉');
