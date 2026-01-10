@@ -15,7 +15,7 @@ interface FormValues {
 const validationSchema = Yup.object({
   email: Yup.string().email('Некоректний email').required("Обов'язкове поле"),
   password: Yup.string()
-    .min(6, 'Мінімум 6 символів')
+    .min(8, 'Мінімум 8 символів')
     .required("Обов'язкове поле"),
 });
 
@@ -58,10 +58,10 @@ export default function LoginForm() {
             <div className={styles.logoWrapper}>
               <div className={styles.logo}>
                 <svg width="31" height="30" className="icon-leleka">
-                  <use href="/logo-icon.svg#icon-icon-leleka"></use>
+                  <use href="/icon-sprite.svg#icon-logo"></use>
                 </svg>
                 <svg width="61" height="13" className="text-leleka">
-                  <use href="/logo-icon.svg#icon-text-leleka"></use>
+                  <use href="/icon-sprite.svg#icon-leleka"></use>
                 </svg>
               </div>
             </div>
@@ -118,7 +118,7 @@ export default function LoginForm() {
 
                   <p className={styles.loginPrompt}>
                     Немає аккаунту?{' '}
-                    <Link href="/sign-up" className={styles.loginLink}>
+                    <Link href="/auth/register" className={styles.loginLink}>
                       Зареєструватися
                     </Link>
                   </p>
