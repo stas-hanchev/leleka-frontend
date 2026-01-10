@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './LoginForm.module.css';
 import toast from 'react-hot-toast';
+import { useAuthStore } from '@/lib/store/authStore'
 
 interface FormValues {
   email: string;
@@ -20,6 +21,7 @@ const validationSchema = Yup.object({
 });
 
 export default function LoginForm() {
+  const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter();
 
   const handleSubmit = async (
@@ -39,6 +41,11 @@ export default function LoginForm() {
 
       if (res.ok) {
         toast.success('Вхід успішний! Вітаємо 👋');
+        // console.log(`Data: `, data);
+        const name = data.name;
+        const email = data.email;
+        const avatarURL = data.avatarURL;
+        setUser({ name, email, avatarURL})
         router.push('/');
       } else {
         toast.error(data.error || 'Невірний email або пароль');
