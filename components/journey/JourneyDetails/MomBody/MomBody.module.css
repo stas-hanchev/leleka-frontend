@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #4a4a4a;
+}
+
+.tipsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tipItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.checkIcon {
+  color: #f8ccd1;
+  font-weight: bold;
+}
+
+.warningCard {
+  background-color: #fdf2f2;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.warningCard strong {
+  color: #000;
+}
