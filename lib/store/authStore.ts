@@ -1,17 +1,17 @@
 import { create } from "zustand";
-// import type { User } from "@/types/user";
+import type { User } from "../../types/user";
 
 interface AuthStore {
-    user: /*User*/ | null,
+    user: User | null,
     isAuthenticated: boolean,
-    setUser: (user/*: User*/) => void,
+    setUser: (user: User) => void,
     clearIsAuthenticated: () => void
 }
 
 export const useAuthStore = create<AuthStore>()((set) => ({
     user: null,
     isAuthenticated: false,
-    setUser: (user/*: User*/) => {
+    setUser: (user: User) => {
         set(() => ({ user: user, isAuthenticated: true }))
     },
     clearIsAuthenticated: () => {

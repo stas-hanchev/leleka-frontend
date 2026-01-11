@@ -1,11 +1,15 @@
 'use client'
 
-import css from './SignInPage.module.css'
+import LoginForm from '@/components/auth/SignIn/LoginForm'
+import styles from './SignInPage.module.css'
 
-const Login = () => {
-    return (
-        <main></main>
-    )
+
+export default function Login() {
+  return (
+    <main className={styles.main}>
+      <div className={styles.formContainer}>
+        <LoginForm />
+      </div>
+    </main>
+  );
 }
-
-export default Login

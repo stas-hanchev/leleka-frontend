@@ -1,0 +1,27 @@
+.headerSection {
+    max-width: 376px;
+    background-color: var(--color-scheme-background);
+    padding: 24px 32px 0;
+    border-bottom: 1px solid var(--color-scheme-border);
+    margin: 0 auto;
+}
+.headerSection {
+    align-items: center;
+}
+.link_leleka {
+font-family: var(--font-family);
+font-weight: 400;
+font-size: 12px;
+line-height: 160%;
+text-align: center;
+color: var(--color-scheme-text);
+}
+
+.link_podoroj {
+   font-family: var(--font-family);
+font-weight: 400;
+font-size: 12px;
+line-height: 160%;
+text-align: center;
+color: var(--color-neutral);
+}

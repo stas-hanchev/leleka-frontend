@@ -4,25 +4,23 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import styles from './RegisterForm.module.css';
+import styles from './LoginForm.module.css';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/lib/store/authStore';
 
 interface FormValues {
-  name: string;
   email: string;
   password: string;
 }
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Обов'язкове поле"),
   email: Yup.string().email('Некоректний email').required("Обов'язкове поле"),
   password: Yup.string()
     .min(8, 'Мінімум 8 символів')
     .required("Обов'язкове поле"),
 });
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const setUser = useAuthStore((state) => state.setUser);
   const router = useRouter();
 
@@ -33,7 +31,7 @@ export default function RegisterForm() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -41,21 +39,19 @@ export default function RegisterForm() {
 
       const data = await res.json();
 
-      if (res.status === 201) {
-        const { name, email, avatarURL } = data;
+      if (res.ok) {
+        toast.success('Вхід успішний! Вітаємо 👋');
+        // console.log(`Data: `, data);
+        const name = data.name;
+        const email = data.email;
+        const avatarURL = data.avatarURL;
         setUser({ name, email, avatarURL });
-
-        toast.success('Реєстрація успішна 🎉');
-        router.push('/profile/edit');
-      } else if (res.status === 400) {
-        toast.error('Цей email вже зареєстрований');
+        router.push('/');
       } else {
-        toast.error(data.error || 'Помилка реєстрації');
+        toast.error(data.error || 'Невірний email або пароль');
       }
     } catch (error: unknown) {
-      toast.error(
-        error instanceof Error ? error.message : 'Помилка реєстрації'
-      );
+      toast.error(error instanceof Error ? error.message : 'Помилка входу');
     } finally {
       setSubmitting(false);
     }
@@ -68,53 +64,34 @@ export default function RegisterForm() {
           <div className={styles.logoContainer}>
             <div className={styles.logoWrapper}>
               <div className={styles.logo}>
-                <svg width="31" height="30">
-                  <use href="/icon-sprite.svg#icon-logo" />
+                <svg width="31" height="30" className="icon-leleka">
+                  <use href="/icon-sprite.svg#icon-logo"></use>
                 </svg>
-                <svg width="61" height="13">
-                  <use href="/icon-sprite.svg#icon-leleka" />
+                <svg width="61" height="13" className="text-leleka">
+                  <use href="/icon-sprite.svg#icon-leleka"></use>
                 </svg>
               </div>
             </div>
           </div>
 
           <div className={styles.formCont}>
-            <h1 className={styles.title}>Реєстрація</h1>
+            <h1 className={styles.title}>Вхід</h1>
 
             <Formik
-              initialValues={{ name: '', email: '', password: '' }}
+              initialValues={{ email: '', password: '' }}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              {({ isSubmitting, errors, touched, submitCount }) => (
-                <Form className={styles.form} noValidate>
-                  <label className={styles.label}>
-                    Ім’я*
-                    <Field
-                      name="name"
-                      placeholder="Ваше імʼя"
-                      className={`${styles.input} ${
-                        errors.name && touched.name && submitCount > 0
-                          ? styles.inputError
-                          : ''
-                      }`}
-                    />
-                    <ErrorMessage
-                      name="name"
-                      component="span"
-                      className={styles.error}
-                    />
-                  </label>
-
+              {({ isSubmitting, errors, touched }) => (
+                <Form className={styles.form}>
                   <label className={styles.label}>
                     Пошта*
                     <Field
                       name="email"
+                      type="email"
                       placeholder="hello@leleka.com"
                       className={`${styles.input} ${
-                        errors.email && touched.email && submitCount > 0
-                          ? styles.inputError
-                          : ''
+                        errors.email && touched.email ? styles.inputError : ''
                       }`}
                     />
                     <ErrorMessage
@@ -123,7 +100,6 @@ export default function RegisterForm() {
                       className={styles.error}
                     />
                   </label>
-
                   <label className={styles.label}>
                     Пароль*
                     <Field
@@ -131,7 +107,7 @@ export default function RegisterForm() {
                       type="password"
                       placeholder="********"
                       className={`${styles.input} ${
-                        errors.password && touched.password && submitCount > 0
+                        errors.password && touched.password
                           ? styles.inputError
                           : ''
                       }`}
@@ -142,19 +118,17 @@ export default function RegisterForm() {
                       className={styles.error}
                     />
                   </label>
-
                   <button
                     type="submit"
                     className={styles.button}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Завантаження...' : 'Зареєструватися'}
+                    {isSubmitting ? 'Завантаження...' : 'Увійти'}
                   </button>
-
                   <p className={styles.loginPrompt}>
-                    Вже маєте аккаунт?{' '}
-                    <Link href="/auth/login" className={styles.loginLink}>
-                      Увійти
+                    Немає аккаунту?{' '}
+                    <Link href="/auth/register" className={styles.loginLink}>
+                      Зареєструватися
                     </Link>
                   </p>
                 </Form>
@@ -162,8 +136,7 @@ export default function RegisterForm() {
             </Formik>
           </div>
         </div>
-
-        <div className={styles.background} />
+        <div className={styles.background}></div>
       </div>
     </section>
   );
