@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const api = axios.create({
+export const NextServer = axios.create({
   baseURL: 'http://localhost:3050',
   withCredentials: true,
 });
