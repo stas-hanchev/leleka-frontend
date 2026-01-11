@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --color-scheme-background: var(--color-white);
   --color-neutral-darkest: #000;
