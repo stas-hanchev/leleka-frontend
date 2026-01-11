@@ -7,7 +7,7 @@ const BLOCKED_RESPONSE_HEADERS_SET = new Set(BLOCKED_RESPONSE_HEADERS);
 
 export async function proxyRequest(req: NextRequest, backendPath?: string): Promise<NextResponse> {
   try {
-    // Гарантуємо, що backendPath завжди є і починається зі слеша
+   
     if (!backendPath) backendPath = '/';
     if (!backendPath.startsWith('/')) backendPath = '/' + backendPath;
 
@@ -15,19 +15,19 @@ export async function proxyRequest(req: NextRequest, backendPath?: string): Prom
 
     const method = req.method;
 
-    // Тільки для методів, що можуть мати тіло
+   
     const body =
       method !== 'GET' && method !== 'HEAD'
         ? await req.json().catch(() => undefined)
         : undefined;
 
-    // Копіюємо заголовки запиту
+    
     const headers: Record<string, string> = {};
     req.headers.forEach((value, key) => {
       headers[key] = value;
     });
 
-    // Виконуємо запит на бекенд
+    
     const apiRes = await NextServer.request({
       url: backendPath,
       method,
@@ -35,7 +35,7 @@ export async function proxyRequest(req: NextRequest, backendPath?: string): Prom
       headers,
     });
 
-    // Фільтруємо небезпечні заголовки
+  
     const responseHeaders: Record<string, string> = {};
     Object.entries(apiRes.headers).forEach(([key, value]) => {
       const lowerKey = key.toLowerCase();
@@ -44,7 +44,7 @@ export async function proxyRequest(req: NextRequest, backendPath?: string): Prom
       }
     });
 
-    // Повертаємо клієнту дані
+   
     return NextResponse.json(apiRes.data, {
       status: apiRes.status,
       headers: responseHeaders,
