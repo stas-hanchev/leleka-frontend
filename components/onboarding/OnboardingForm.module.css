@@ -1,0 +1,369 @@
+.datePickerWrapper {
+    width: 100%;
+}
+
+.datePickerCustom {
+    width: 100%;
+}
+
+.datePickerCustom :global(.react-datepicker__input-container) {
+    display: block;
+    width: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.containerRegister {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 375px;
+}
+
+.containerTwo {
+    width: 100%;
+    display: block;
+}
+
+.logoContainer {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 29.5px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 14px;
+}
+
+.title {
+    font-family: var(--second-family);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 32px;
+    color: #2d2d2d;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d2d2d;
+}
+
+.avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.avatarCircle {
+    width: 164px;
+    height: 164px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+    border: 1px solid #e0e0e0;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.uploadBtn {
+    background: #f2f2f2;
+    border: none;
+    border-radius: 100px;
+    padding: 8px 24px;
+    font-size: 14px;
+    color: #2d2d2d;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.selectWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    background-color: #f2f2f2;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #2d2d2d;
+    outline: none;
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.selectArrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input {
+    width: 100%;
+    height: 37px;
+    background-color: #f2f2f2;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: #2d2d2d;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.inputInvalid {
+    border-color: #ff4c4c !important;
+}
+
+.error {
+    color: #ff4c4c;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.button {
+    width: 100%;
+    height: 42px;
+    background-color: #fce1e5;
+    color: #2d2d2d;
+    border: none;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.background {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .containerRegister {
+        max-width: 768px;
+        padding: 0 32px;
+    }
+
+    .globalForm {
+        max-width: 768px;
+    }
+
+    .title {
+        max-width: 450px;
+        margin: 0 auto;
+        margin-bottom: 32px;
+    }
+
+    .form {
+        max-width: 480px;
+        display: flex;
+        margin: 0 auto;
+    }
+
+    .logoContainer {
+        margin-bottom: 109.5px;
+    }
+}
+
+.customSelectWrapper {
+    position: relative;
+    width: 100%;
+    font-family: inherit;
+}
+
+.selectField {
+    height: 42px;
+    background-color: #f2f2f2;
+    border: 1px solid var(--opacity-transparent);
+    border-radius: 12px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.selectField.active {
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.placeholderText {
+    color: #a0a0a0;
+    font-size: 14px;
+}
+
+.selectedText {
+    color: #2d2d2d;
+    font-size: 14px;
+}
+
+.selectArrow {
+    transition: transform 0.3s ease;
+}
+
+.selectArrow.rotated {
+    transform: rotate(180deg);
+}
+
+.optionsList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #f2f2f2;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.option {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #2d2d2d;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.option:hover {
+    background-color: #e8e8e8;
+}
+
+.inputInvalid {
+    border-color: #ff4c4c !important;
+}
+
+.inputError {
+    border: 2px solid #ff4c4c !important;
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-4px);
+    }
+
+    40% {
+        transform: translateX(4px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .containerRegister {
+        flex-direction: row;
+        align-items: stretch;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+    }
+
+    .containerTwo {
+        flex-direction: column;
+        flex: 1;
+        justify-content: flex-start;
+        display: flex;
+    }
+
+    .logoWrapper {
+        justify-content: flex-start;
+        width: 100%;
+        max-width: 335px;
+        padding-left: 64px;
+        display: flex;
+    }
+
+    .logoContainer {
+        margin-bottom: 57px;
+    }
+
+    .title {
+        font-size: 48px;
+    }
+
+    .background {
+        display: block;
+        flex: 1;
+        background-color: #eef1e4;
+        background-image: url('/onboarding.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+}
