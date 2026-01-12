@@ -7,6 +7,7 @@ import Link from 'next/link';
 import styles from './RegisterForm.module.css';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/lib/store/authStore';
+import { api } from '@/app/api/api';
 
 interface FormValues {
   name: string;
@@ -15,11 +16,11 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Обов'язкове поле"),
-  email: Yup.string().email('Некоректний email').required("Обов'язкове поле"),
+  name: Yup.string().required('Обовʼязкове поле'),
+  email: Yup.string().email('Некоректний email').required('Обовʼязкове поле'),
   password: Yup.string()
     .min(8, 'Мінімум 8 символів')
-    .required("Обов'язкове поле"),
+    .required('Обовʼязкове поле'),
 });
 
 export default function RegisterForm() {
@@ -33,29 +34,24 @@ export default function RegisterForm() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+      
+      const res = await api.post('/auth/register', values, {
+        withCredentials: true, 
       });
 
-      const data = await res.json();
+      const data = res.data;
 
-      if (res.status === 201) {
-        const { name, email, avatarURL } = data;
-        setUser({ name, email, avatarURL });
+      const { name, email, avatarURL } = data;
+      setUser({ name, email, avatarURL });
 
-        toast.success('Реєстрація успішна 🎉');
-        router.push('/profile/edit');
-      } else if (res.status === 400) {
-        toast.error('Цей email вже зареєстрований');
-      } else {
-        toast.error(data.error || 'Помилка реєстрації');
-      }
+      toast.success('Реєстрація успішна 🎉');
+      router.push('/profile/edit');
     } catch (error: unknown) {
-      toast.error(
-        error instanceof Error ? error.message : 'Помилка реєстрації'
-      );
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('Помилка реєстрації');
+      }
     } finally {
       setSubmitting(false);
     }
