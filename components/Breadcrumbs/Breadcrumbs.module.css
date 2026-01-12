@@ -1,0 +1,50 @@
+
+
+.nav {
+  padding: 16px 0;
+}
+
+.list {
+  display: flex;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.link_leleka {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 160%;
+  text-align: center;
+  color: var(--color-scheme-text);
+}
+
+.link_leleka:hover,
+.link_leleka:focus {
+  color: var(--color-scheme-text);
+  text-decoration: underline;
+}
+
+.separator {
+  color: var(--color-scheme-text);
+  margin: 0 8px; 
+  font-size: 16px;
+}
+
+.current {
+ font-family: var(--font-family);
+font-weight: 400;
+font-size: 12px;
+line-height: 160%;
+text-align: center;
+color: var(--color-neutral);
+}

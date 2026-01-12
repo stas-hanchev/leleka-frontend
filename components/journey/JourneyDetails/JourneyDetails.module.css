@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tabsContainer {
+  display: flex;
+  background-color: #fdf2f2;
+  padding: 4px;
+  border-radius: 100px;
+  width: 100%;
+}
+
+.tab,
+.activeTab {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 100px;
+}
+
+.tab {
+  background: transparent;
+  color: #4a4a4a;
+}
+
+.activeTab {
+  background-color: #f8ccd1;
+  color: #000000;
+}
+
+.scrollArea {
+  height: auto;
+}

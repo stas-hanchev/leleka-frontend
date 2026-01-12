@@ -3,6 +3,7 @@ import { Comfortaa, Geist, Geist_Mono, Lato } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import Header from '@/components/Header/Header';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,12 +37,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk">
-      <body className={`${lato.variable} ${comfortaa.variable}`}>
-        <TanStackProvider>
-          {/* <AuthProvider>{children}</AuthProvider> */}
-          {children}
-        </TanStackProvider>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   );

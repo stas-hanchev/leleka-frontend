@@ -64,7 +64,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* max-width: 335px; */
   max-width: 480px;
   gap: 24px;
   margin: 0 auto;
@@ -111,10 +110,13 @@
   font-size: 12px;
   margin-top: 4px;
 }
+.inputError {
+  border: 2px solid var(--color-red);
+  animation: shake 0.3s ease-in-out;
+}
 
 .button {
   width: 100%;
-  /* max-width: 335px; */
   max-width: 480px;
   height: 42px;
   background: var(--color-scheme-foreground-alt);
@@ -133,13 +135,14 @@
   justify-content: center;
 }
 
-.button:hover {
-  background: var(--color-scheme-foreground);
-}
-
 .button:active {
   transform: scale(0.98);
 }
+.button:hover:not(:disabled),
+.button:focus-visible:not(:disabled) {
+  background: var(--color-scheme-foreground);
+}
+
 .loginPrompt {
   font-family: var(--font-family);
   font-weight: 400;
@@ -248,5 +251,25 @@
   }
   .logoContainer {
     margin-bottom: 177px;
+  }
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-4px);
+    }
+    40% {
+      transform: translateX(4px);
+    }
+    60% {
+      transform: translateX(-4px);
+    }
+    80% {
+      transform: translateX(4px);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 }
