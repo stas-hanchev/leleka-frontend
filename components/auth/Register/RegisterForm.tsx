@@ -41,8 +41,8 @@ export default function RegisterForm() {
 
       const data = res.data;
 
-      const { name, email, avatarURL } = data;
-      setUser({ name, email, avatarURL });
+      const { name, email, avatar } = data;
+      setUser({ name, email, avatar });
 
       toast.success('Реєстрація успішна 🎉');
       router.push('/profile/edit');
