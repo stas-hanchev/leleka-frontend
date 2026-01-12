@@ -49,21 +49,17 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
         <Image
           src={user.avatarURL}
           alt={user.name}
-          width={120}
-          height={120}
+          width={132}
+          height={132}
           className={styles.avatar}
           priority
         />
-        {uploadAvatarMutation.isPending && (
-          <div className={styles.loader}>
-            <div className={styles.spinner}></div>
-          </div>
-        )}
       </div>
 
-      <h2 className={styles.name}>{user.name}</h2>
-      <p className={styles.email}>{user.email}</p>
-
+      <h2 className={styles.name}>Ганна</h2>
+      {/* {user.name} */}
+      <p className={styles.email}>hanna@gmail.com</p>
+      {/* {user.email} */}
       <button
         type="button"
         onClick={handleButtonClick}

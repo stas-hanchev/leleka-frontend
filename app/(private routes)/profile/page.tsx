@@ -10,22 +10,18 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className={styles.page}>
-        <div className={styles.container}>
-          <div className={styles.errorMessage}>
-            <p>Профіль не знайдено</p>
-          </div>
+      <div className={styles.container}>
+        <div className={styles.errorMessage}>
+          <p>Профіль не знайдено</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        <ProfileAvatar user={user} />
-        <ProfileEditForm user={user} />
-      </div>
+    <div className={styles.container}>
+      <ProfileAvatar user={user} />
+      <ProfileEditForm user={user} />
     </div>
   );
 }
