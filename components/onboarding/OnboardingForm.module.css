@@ -1,0 +1,382 @@
+.datePickerWrapper {
+    width: 100%;
+}
+
+.datePickerCustom {
+    width: 100%;
+}
+
+.datePickerCustom :global(.react-datepicker__input-container) {
+    display: block;
+    width: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-white);
+}
+
+.containerRegister {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 375px;
+}
+
+.containerTwo {
+    width: 100%;
+    display: block;
+}
+
+.logoContainer {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 29.5px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 14px;
+}
+
+.title {
+    font-family: var(--second-family);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    margin: 0 0 32px;
+    color: var(--color-neutral-darker);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-family: var(--font-family);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 150%;
+        color: var(--color-scheme-text)
+    }
+
+.avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.avatarCircle {
+    width: 164px;
+    height: 164px;
+    border-radius: 50%;
+    background-color: var(--color-neutral-lightest);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+    border: 1px solid var(--color-neutral-lighter);
+}
+
+.image {
+    object-fit: cover;
+}
+
+.uploadBtn {
+    background: var(--color-neutral-lightest);
+    border: none;
+    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+    border-radius: 100px;
+    padding: 8px 24px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+}
+
+.uploadBtn:hover {
+    background: var(--color-scheme-foreground);
+}
+
+.uploadBtn:active {
+    background: var(--color-scheme-accent);
+}
+
+.selectWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    background-color: var(--color-neutral-lightest);
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--color-neutral-darker);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+}
+
+.selectArrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input {
+    width: 100%;
+    height: 37px;
+    background-color: var(--color-neutral-lightest);
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: var(--color-neutral-darker);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.inputInvalid {
+    border-color: var(--color-red) !important;
+}
+
+.error {
+    color: var(--color-red);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-4px);
+    }
+
+    40% {
+        transform: translateX(4px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.shake {
+    animation: shake 0.35s ease-in-out;
+}
+
+.button {
+    width: 100%;
+    height: 42px;
+    background-color: var(--color-pastel-pink-light);
+    color: var(--color-neutral-darker);
+    border: none;
+    border-bottom: 4px solid var(--color-scheme-accent);
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.button:hover {
+    background: var(--color-scheme-background);
+    border-bottom: 4px solid var(--color-scheme-border);
+}
+
+.button:active {
+    background: var(--color-neutral-light);
+    border: none;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.background {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .containerRegister {
+        max-width: 768px;
+        padding: 0 32px;
+    }
+
+    .globalForm {
+        max-width: 768px;
+    }
+
+    .title {
+        max-width: 450px;
+        margin: 0 auto 32px;
+    }
+
+    .form {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .logoContainer {
+        margin-bottom: 109.5px;
+    }
+}
+
+.customSelectWrapper {
+    position: relative;
+    width: 100%;
+    font-family: inherit;
+}
+
+.selectField {
+    height: 42px;
+    background-color: var(--color-neutral-lightest);
+    border: 1px solid var(--opacity-transparent);
+    border-radius: 12px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.selectField.active {
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid var(--color-neutral-lighter);
+}
+
+.placeholderText {
+    color: var(--color-neutral-light);
+    font-size: 14px;
+}
+
+.selectedText {
+    color: var(--color-neutral-darker);
+    font-size: 14px;
+}
+
+.selectArrow {
+    transition: transform 0.3s ease;
+}
+
+.selectArrow.rotated {
+    transform: rotate(180deg);
+}
+
+.optionsList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-neutral-lightest);
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    z-index: 100;
+    box-shadow: 0 4px 12px var(--opacity-neutral-darkest-5);
+}
+
+.option {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--color-neutral-darker);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.option:hover {
+    background-color: var(--color-neutral-lighter);
+}
+
+@media screen and (min-width: 1440px) {
+    .containerRegister {
+        flex-direction: row;
+        align-items: stretch;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .containerTwo {
+        flex-direction: column;
+        flex: 1;
+        justify-content: flex-start;
+        display: flex;
+    }
+
+    .logoWrapper {
+        justify-content: flex-start;
+        width: 100%;
+        max-width: 335px;
+        padding-left: 64px;
+        display: flex;
+    }
+
+    .logoContainer {
+        margin-bottom: 57px;
+    }
+
+    .title {
+        font-size: 48px;
+    }
+
+    .background {
+        display: block;
+        flex: 1;
+        background-color: var(--color-oasis-light);
+        background-image: url('/onboarding.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+}
