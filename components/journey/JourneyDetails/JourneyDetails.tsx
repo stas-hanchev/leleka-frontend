@@ -17,14 +17,14 @@ export default function JourneyDetails({ weekNumber }: JourneyDetailsProps) {
       <div className={styles.tabsContainer}>
         <button
           type="button"
-          className={activeTab === 'baby' ? styles.activeTab : styles.tab}
+          className={activeTab === 'baby' ? styles.activeTab_baby : styles.tab}
           onClick={() => setActiveTab('baby')}
         >
           Розвиток малюка
         </button>
         <button
           type="button"
-          className={activeTab === 'mom' ? styles.activeTab : styles.tab}
+          className={activeTab === 'mom' ? styles.activeTab_mama : styles.tab}
           onClick={() => setActiveTab('mom')}
         >
           Тіло мами

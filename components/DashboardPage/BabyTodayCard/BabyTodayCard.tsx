@@ -19,8 +19,8 @@ export default function BabyTodayCard() {
 
   if (isError || !data?.data?.babyToday) {
     return (
-      <div className={css.card}>
-        <p className={css.error}>Не вдалося завантажити дані</p>
+      <div className={css.card_baby}>
+        <p className={css.error_wrapper}>Не вдалося завантажити дані</p>
       </div>
     );
   }
@@ -28,12 +28,12 @@ export default function BabyTodayCard() {
   const baby: BabyToday = data.data.babyToday;
 
   return (
-    <div className={css.card}>
-      <h3 className={css.title}>Малюк сьогодні</h3>
+    <div className={css.card_baby}>
+      <h3 className={css.title_baby}>Малюк сьогодні</h3>
 
-      <div className={css.content}>
+      <div className={css.content_baby}>
         {baby.image && (
-          <div className={css.imageWrapper}>
+          <div className={css.imageWrapper_baby}>
             <Image
               src={baby.image}
               alt="Ілюстрація малюка"
@@ -44,20 +44,20 @@ export default function BabyTodayCard() {
           </div>
         )}
 
-        <div className={css.textWrapper}>
-          <p className={css.info}>
-            Розмір: <span className={css.infotext}>{baby.babySize} см</span>
+        <div className={css.textWrapper_baby}>
+          <p className={css.info_baby}>
+            Розмір: <span className={css.infotext_baby}>{baby.babySize} см</span>
           </p>
-          <p className={css.info}>
-            Вага: <span className={css.infotext}>{baby.babyWeight} г</span>
+          <p className={css.info_baby}>
+            Вага: <span className={css.infotext_baby}>{baby.babyWeight} г</span>
           </p>
-          <p className={css.info}>
+          <p className={css.info_baby}>
             Активність:{" "}
-            <span className={css.infotext}>{baby.babyActivity}</span>
+            <span className={css.infotext_baby}>{baby.babyActivity}</span>
           </p>
         </div>
       </div>
-      <p className={css.infotext}>{baby.babyDevelopment}</p>
+      <p className={css.infotext_baby}>{baby.babyDevelopment}</p>
     </div>
   );
 }

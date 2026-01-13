@@ -1,40 +1,67 @@
 .wrapper {
   display: flex;
-  flex-direction: column;
   gap: 20px;
 }
 
 .tabsContainer {
   display: flex;
-  background-color: #fdf2f2;
-  padding: 4px;
-  border-radius: 100px;
-  width: 100%;
+  background: var(--color-scheme-foreground);
+ border: 1px solid var(--opacity-transparent);
+border-radius: 100px;
+padding: 4px;
+max-width: 335px;
+height: 50px;
 }
 
 .tab,
 .activeTab {
+  
   flex: 1;
-  padding: 10px 16px;
-  border: none;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 100px;
+border: 1px solid var(--opacity-transparent);
+border-radius: 100px;
+padding: 10px 24px;
+max-width: 163px;
+height: 42px;
+font-family: var(--font-family);
+font-weight: 500;
+font-size: 14px;
+line-height: 160%;
+color: var(--color-scheme-text);
 }
 
 .tab {
-  background: transparent;
+  background: var(--opacity-transparent);
   color: #4a4a4a;
 }
 
 .activeTab {
-  background-color: #f8ccd1;
-  color: #000000;
+background: var(--color-scheme-foreground-alt);
+color: var(--color-scheme-text);
 }
 
 .scrollArea {
   height: auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .tabsContainer {
+    max-width: 704px;
+  }
+  .activeTab, 
+  .tab {
+    max-width: 348px;
+  }
+
+}
+@media only screen and (min-width: 1440px) {
+.tabsContainer {
+  max-width: 572px;
+  height: 54px;
+}
+.activeTab , 
+.tab {
+  max-width: 295px;
+}
 }
