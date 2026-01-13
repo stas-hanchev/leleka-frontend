@@ -160,20 +160,20 @@ export default function HeaderModalNavigation({
             <UserBar user={user!} />
           ) : (
               <div className={css.btns_container}>
-                <button
-                  type="button"
+                <Link
                   className={css.register_btn}
-                  onClick={() => { router.push('auth/register') }}
+                  href="/auth/register"
+                  aria-label="Register"
                 >
                   Зареєструватись
-                </button>
-                <button
-                  type="button"
+                </Link>
+                <Link
                   className={css.login_btn}
-                  onClick={() => { router.push('auth/login') }}
+                  href="/auth/login"
+                  aria-label="Login"
                 >
                   Увійти
-                </button>
+                </Link>
               </div>
           ) }
         </div>

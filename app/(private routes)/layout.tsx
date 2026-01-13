@@ -11,7 +11,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <Providers>
-      <Header />
+      {/* <Header /> */}
       <main className="container">
         {children}
       </main>
