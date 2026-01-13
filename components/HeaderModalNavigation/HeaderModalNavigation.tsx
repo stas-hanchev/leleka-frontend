@@ -2,6 +2,8 @@ import { createPortal } from "react-dom";
 import css from "./HeaderModalNavigation.module.css";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useAuthStore } from "@/lib/store/authStore";
+import { useRouter } from 'next/navigation';
 
 interface HeaderModalNavigationProps {
   onClose: () => void;
@@ -10,6 +12,9 @@ interface HeaderModalNavigationProps {
 export default function HeaderModalNavigation({
   onClose,
 }: HeaderModalNavigationProps) {
+  const { isAuthenticated, user } = useAuthStore();
+  const router = useRouter();
+
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -72,38 +77,93 @@ export default function HeaderModalNavigation({
             </li>
             <li className={css.navigation_list_item}>
               {/* Todo Bellow need complex solution */}
-              <Link
-                href="/journey/1"
-                aria-label="Jorney"
-                className={css.menu_link}
-              >
-                <svg width="24" height="24" className={css.list_item_svg}>
-                  <use href="/icon-sprite.svg#icon-conversion-path"></use>
-                </svg>
-                Подорож
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  href="/journey/1"
+                  aria-label="Jorney"
+                  className={css.menu_link}
+                >
+                  <svg width="24" height="24" className={css.list_item_svg}>
+                    <use href="/icon-sprite.svg#icon-conversion-path"></use>
+                  </svg>
+                  Подорож
+                </Link>
+              ) : (
+                <Link
+                  href="/auth/register"
+                  aria-label="Register"
+                  className={css.menu_link}
+                >
+                  <svg width="24" height="24" className={css.list_item_svg}>
+                    <use href="/icon-sprite.svg#icon-conversion-path"></use>
+                  </svg>
+                  Подорож
+                </Link>
+              )}
             </li>
             <li className={css.navigation_list_item}>
-              <Link href="/diary" aria-label="Diary" className={css.menu_link}>
-                <svg width="24" height="24" className={css.list_item_svg}>
-                  <use href="/icon-sprite.svg#icon-book"></use>
-                </svg>
-                Щоденник
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  href="/diary"
+                  aria-label="Diary"
+                  className={css.menu_link}
+                >
+                  <svg width="24" height="24" className={css.list_item_svg}>
+                    <use href="/icon-sprite.svg#icon-book"></use>
+                  </svg>
+                  Щоденник
+                </Link>
+              ) : (
+                <Link
+                  href="/auth/register"
+                  aria-label="Register"
+                  className={css.menu_link}
+                >
+                  <svg width="24" height="24" className={css.list_item_svg}>
+                    <use href="/icon-sprite.svg#icon-book"></use>
+                  </svg>
+                  Щоденник
+                </Link>
+              )}
             </li>
             <li className={css.navigation_list_item}>
-              <Link href="/profile" aria-label="Home" className={css.menu_link}>
-                <svg width="24" height="24" className={css.list_item_svg}>
-                  <use href="/icon-sprite.svg#icon-account-circle"></use>
-                </svg>
-                Профіль
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  href="/profile"
+                  aria-label="Home"
+                  className={css.menu_link}
+                >
+                  <svg width="24" height="24" className={css.list_item_svg}>
+                    <use href="/icon-sprite.svg#icon-account-circle"></use>
+                  </svg>
+                  Профіль
+                </Link>
+              ) : (
+                <Link
+                  href="/auth/register"
+                  aria-label="Register"
+                  className={css.menu_link}
+                >
+                  <svg width="24" height="24" className={css.list_item_svg}>
+                    <use href="/icon-sprite.svg#icon-account-circle"></use>
+                  </svg>
+                  Профіль
+                </Link>
+              )}
             </li>
           </ul>
+        </div>
+        <div className={css.bottom_modal_container}>
+          {isAuthenticated ? (
+            <p>Authenticated</p>
+            // <UserBar user />
+          ) : (
+              <div className={css.btns_container}>
+                <button type="button" className={css.register_btn} onClick={() => {router.push('auth/register')}}>Зареєструватись</button>
+                <button type="button" className={css.login_btn} onClick={() => {router.push('auth/login')}}>Увійти</button>
               </div>
-              <div className={css.bottom_modal_container}>
-                  
-              </div>
+          ) }
+        </div>
       </div>
     </div>,
     document.body
