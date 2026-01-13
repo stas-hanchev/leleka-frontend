@@ -8,14 +8,14 @@ export default function GreetingBlock() {
 
   if (!user)
     return (
-      <div className={css.block}>
-        <h2 className={css.title}>Доброго ранку!</h2>
+      <div className={css.block_title}>
+        <h2 className={css.title_greeting}>Доброго ранку!</h2>
       </div>
     );
 
   return (
-    <div className={css.block}>
-      <h2 className={css.title}>Доброго ранку {user && ", " + user.name}!</h2>
+    <div className={css.block_title}>
+      <h2 className={css.title_greeting}>Доброго ранку {user && ", " + user.name}!</h2>
     </div>
   );
 }
