@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from 'next/navigation';
+import UserBar from "../UserBar/UserBar";
 
 interface HeaderModalNavigationProps {
   onClose: () => void;
@@ -155,12 +156,24 @@ export default function HeaderModalNavigation({
         </div>
         <div className={css.bottom_modal_container}>
           {isAuthenticated ? (
-            <p>Authenticated</p>
-            // <UserBar user />
+            // <p>Authenticated</p>
+            <UserBar user={user!} />
           ) : (
               <div className={css.btns_container}>
-                <button type="button" className={css.register_btn} onClick={() => {router.push('auth/register')}}>Зареєструватись</button>
-                <button type="button" className={css.login_btn} onClick={() => {router.push('auth/login')}}>Увійти</button>
+                <button
+                  type="button"
+                  className={css.register_btn}
+                  onClick={() => { router.push('auth/register') }}
+                >
+                  Зареєструватись
+                </button>
+                <button
+                  type="button"
+                  className={css.login_btn}
+                  onClick={() => { router.push('auth/login') }}
+                >
+                  Увійти
+                </button>
               </div>
           ) }
         </div>
