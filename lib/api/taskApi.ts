@@ -4,6 +4,9 @@ import axios from "axios";
 
 export interface TasksResponce {
   tasks: Task[];
+  totalCount: number;
+  totalPages: number;
+  page: number;
 }
 
 // GET /tasks
@@ -13,7 +16,7 @@ export async function fetchTasks(): Promise<TasksResponce> {
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
-      return { tasks: [] };
+      return { tasks: [], totalCount: 0, totalPages: 0, page: 0 };
     }
     throw error;
   }
