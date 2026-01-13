@@ -4,15 +4,22 @@ import { parse } from 'cookie';
 import { checkServerSession } from './lib/api/serverApi';
 
 const privateRoutes = [
-  '/diary/profile',
-  '/diary/profile/edit',
-  '/journey',
-  '/profile',
-  
+  '/auth/logout',
+  '/auth/',           
+  '/diaries',
+  '/tasks',
+  '/users/current',
+  '/users/avatar',
+  '/weeks/dashboard',
+  '/weeks/',          
 ];
+
 const publicRoutes = [
-  '/auth/login',
   '/auth/register',
+  '/auth/login',
+  '/auth/refresh',
+  '/auth/request-reset-email',
+  '/auth/reset-password',
 ];
 
 export async function proxy(request: NextRequest) {
@@ -65,7 +72,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next();
     }
     if (isPrivateRoute) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
   }
 
@@ -80,10 +87,20 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/profile/:path*',
-    '/diary/profile/:path*',
-    '/journey/:path*',
-    '/auth/:path*',
-    '/api/:path*'
+    // Приватні маршрути
+    '/auth/logout',
+    '/auth/:path*',          
+    '/diaries/:path*',        
+    '/tasks/:path*',          
+    '/users/current',
+    '/users/avatar',
+    '/weeks/dashboard',
+    '/weeks/:path*',         
+    // Публічні маршрути
+    '/auth/register',
+    '/auth/login',
+    '/auth/refresh',
+    '/auth/request-reset-email',
+    '/auth/reset-password',
   ],
 };
