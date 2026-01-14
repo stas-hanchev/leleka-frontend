@@ -1,46 +1,17 @@
-// import { NextRequest, NextResponse } from "next/server";
-// import { NextServer } from "@/lib/api/api";
-// import { isAxiosError } from "axios";
-
-// export async function POST(req: NextRequest) {
-//   try {
-//     const body = await req.json();
-//     const apiRes = await NextServer.post("/auth/login", body);
-
-//     return NextResponse.json(apiRes.data, { status: apiRes.status });
-//   } catch (error: unknown) {
-//     console.error(error);
-
-//     if (isAxiosError(error)) {
-//       return NextResponse.json(
-//         { error: error.response?.data?.message || error.message },
-//         { status: error.response?.status || 500 }
-//       );
-//     }
-
-//     return NextResponse.json(
-//       {
-//         error: error instanceof Error ? error.message : "Internal Server Error",
-//       },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-import { NextRequest, NextResponse } from "next/server";
-import { lehlekaApi } from "../../api";
-import { cookies } from "next/headers";
-import { parse } from "cookie";
-import { isAxiosError } from "axios";
-import { logErrorResponse } from "../../_utils/utils";
+import { NextRequest, NextResponse } from 'next/server';
+import { lehlekaApi } from '../../api';
+import { cookies } from 'next/headers';
+import { parse } from 'cookie';
+import { isAxiosError } from 'axios';
+import { logErrorResponse } from '../../_utils/utils';
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const apiRes = await lehlekaApi.post("auth/login", body);
+    const apiRes = await lehlekaApi.post('/auth/login', body);
 
     const cookieStore = await cookies();
-    const setCookie = apiRes.headers["set-cookie"];
+    const setCookie = apiRes.headers['set-cookie'];
 
     if (setCookie) {
       const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
@@ -49,18 +20,18 @@ export async function POST(req: NextRequest) {
         const options = {
           expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
           path: parsed.Path,
-          maxAge: Number(parsed["Max-Age"]),
+          maxAge: Number(parsed['Max-Age']),
         };
         if (parsed.accessToken)
-          cookieStore.set("accessToken", parsed.accessToken, options);
+          cookieStore.set('accessToken', parsed.accessToken, options);
         if (parsed.refreshToken)
-          cookieStore.set("refreshToken", parsed.refreshToken, options);
+          cookieStore.set('refreshToken', parsed.refreshToken, options);
       }
 
       return NextResponse.json(apiRes.data, { status: apiRes.status });
     }
 
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   } catch (error) {
     if (isAxiosError(error)) {
       const status = error.response?.status;
@@ -69,7 +40,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(
           {
             error:
-              "Помилка в назві пошти, паролі або ж такого користувача не існує",
+              'Помилка в назві пошти, паролі або ж такого користувача не існує',
           },
           { status: 401 }
         );
@@ -77,7 +48,7 @@ export async function POST(req: NextRequest) {
 
       if (status === 422 || status === 400) {
         return NextResponse.json(
-          { error: "Невалідні дані, перевірте введену пошту або ж ім`я" },
+          { error: 'Невалідні дані, перевірте введену пошту або ж ім`я' },
           { status }
         );
       }
@@ -89,7 +60,7 @@ export async function POST(req: NextRequest) {
     }
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: 'Internal Server Error' },
       { status: 500 }
     );
   }

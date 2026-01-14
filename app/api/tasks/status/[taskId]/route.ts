@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import { lehlekaApi } from "../../../api";
-import { cookies } from "next/headers";
-import { logErrorResponse } from "../../../_utils/utils";
-import { isAxiosError } from "axios";
+import { NextResponse } from 'next/server';
+import { lehlekaApi } from '../../../api';
+import { cookies } from 'next/headers';
+import { logErrorResponse } from '../../../_utils/utils';
+import { isAxiosError } from 'axios';
 
 type Props = {
   params: Promise<{ taskId: string }>;
@@ -14,9 +14,9 @@ export async function PATCH(request: Request, { params }: Props) {
     const { taskId } = await params;
     const body = await request.json();
 
-    const payload = typeof body === "boolean" ? { isDone: body } : body;
+    const payload = typeof body === 'boolean' ? { isDone: body } : body;
 
-    const res = await lehlekaApi.patch(`/tasks/status/${taskId}`, payload, {
+    const res = await lehlekaApi.patch(`/tasks/${taskId}/status`, payload, {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -34,7 +34,7 @@ export async function PATCH(request: Request, { params }: Props) {
 
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: 'Internal Server Error' },
       { status: 500 }
     );
   }

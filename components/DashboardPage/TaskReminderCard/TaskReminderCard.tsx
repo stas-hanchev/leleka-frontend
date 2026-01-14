@@ -8,7 +8,6 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { fetchTasks, updateTaskStatus } from "@/lib/api/taskApi";
-// import AddTaskModal from "../AddTaskModal/AddTaskModal";
 import { useTaskModalStore } from "@/lib/store/taskModalStore";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
@@ -32,7 +31,7 @@ export default function TaskReminderCard() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
 
-  const tasks = data?.tasks ?? [];
+  const tasks = data?.tasks || [];
 
   const handleAddTaskClick = () => {
     if (!user) {

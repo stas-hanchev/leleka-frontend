@@ -4,16 +4,21 @@ import axios from "axios";
 
 export interface TasksResponce {
   tasks: Task[];
+  totalCount: number;
+  totalPages: number;
+  page: number;
 }
 
 // GET /tasks
 export async function fetchTasks(): Promise<TasksResponce> {
   try {
     const res = await NextServer.get("/tasks");
-    return res.data;
+    return {
+      tasks: res.data.data,
+    };
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 401) {
-      return { tasks: [] };
+      return { tasks: [], totalCount: 0, totalPages: 0, page: 0 };
     }
     throw error;
   }
@@ -38,7 +43,7 @@ export async function updateTaskStatus(
   taskId: string,
   isDone: boolean
 ): Promise<Task> {
-  const res = await NextServer.patch(`/tasks/status/${taskId}`, { isDone });
+  const res = await NextServer.patch(`/tasks/${taskId}/status`, { isDone });
   if (res.status !== 200) {
     throw new Error("Не вдалося оновити статус завдання");
   }
