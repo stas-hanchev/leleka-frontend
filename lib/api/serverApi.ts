@@ -13,3 +13,13 @@ export async function getCurrentUserServer(): Promise<User> {
 
   return res.data;
 }
+
+export const checkServerSession = async () => {
+  const cookieStore = await cookies();
+  const res = await NextServer.get("/auth/session", {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return res;
+};
