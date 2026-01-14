@@ -19,14 +19,14 @@
 //     }
 // }))
 
-import { UserData } from "@/types/user";
+import { User } from "@/types/user";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 type AuthStore = {
   isAuthenticated: boolean;
-  user: UserData | null;
-  setUser: (user: UserData) => void;
+  user: User | null;
+  setUser: (user: User) => void;
   clearIsAuthenticated: () => void;
 };
 
@@ -35,7 +35,7 @@ export const useAuthStore = create<AuthStore>()(
     (set) => ({
       isAuthenticated: false,
       user: null,
-      setUser: (user: UserData) => {
+      setUser: (user: User) => {
         set(() => ({ user, isAuthenticated: true }));
       },
       clearIsAuthenticated: () => {
