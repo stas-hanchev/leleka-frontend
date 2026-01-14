@@ -7,7 +7,7 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs'
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <div>
-      <Header/>
+      {/* <Header/> */}
       {/* Sidebar */}
       <Breadcrumbs/>
       <main>{children}</main>
