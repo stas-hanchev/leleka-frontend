@@ -9,21 +9,29 @@ import { useRouter } from "next/navigation";
 
 interface UserBarProps {
   user: User;
-  onCloseMenu: () => void;
 }
 
-export default function UserBar({ user, onCloseMenu }: UserBarProps) {
+export default function UserBar({ user }: UserBarProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+
+  const openConfirmationModal = () => {
+    setIsConfirmationModalOpen(true);
+  };
+
+  const closeConfirmationModal = () => {
+    setIsConfirmationModalOpen(false);
+  };
+
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated
   );
   const router = useRouter();
 
   const handleLogout = async () => {
+    closeConfirmationModal();
     await logout();
     clearIsAuthenticated();
-    onCloseMenu();
-    router.push("/sign-in");
+    router.push("/auth/login");
   };
 
   return (
@@ -45,7 +53,7 @@ export default function UserBar({ user, onCloseMenu }: UserBarProps) {
         className={css.logoutButton}
         aria-label="Logout"
         onClick={() => {
-          setIsConfirmationModalOpen(true);
+          openConfirmationModal();
         }}
       >
         <svg width="18" height="19" className="logout-icon">
