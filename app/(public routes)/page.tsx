@@ -1,10 +1,10 @@
-import BabyTodayCard from "@/components/DashboardPage/BabyTodayCard/BabyTodayCard";
-import styles from "./dashboardPage.module.css";
-import GreetingBlock from "@/components/DashboardPage/GreetingBlock/GreetingBlock";
-import StatusBlock from "@/components/DashboardPage/StatusBlock/StatusBlock";
-import TaskReminderCard from "@/components/DashboardPage/TaskReminderCard/TaskReminderCard";
-import MomTipCard from "@/components/DashboardPage/MomTipCard/MomTipCard";
-import FeelingCard from "@/components/DashboardPage/FeelingCard/FeelingCard";
+import BabyTodayCard from '@/components/DashboardPage/BabyTodayCard/BabyTodayCard';
+import styles from './dashboardPage.module.css';
+import GreetingBlock from '@/components/DashboardPage/GreetingBlock/GreetingBlock';
+import StatusBlock from '@/components/DashboardPage/StatusBlock/StatusBlock';
+import TaskReminderCard from '@/components/DashboardPage/TaskReminderCard/TaskReminderCard';
+import MomTipCard from '@/components/DashboardPage/MomTipCard/MomTipCard';
+import FeelingCard from '@/components/DashboardPage/FeelingCard/FeelingCard';
 
 export default function DashboardPage() {
   return (

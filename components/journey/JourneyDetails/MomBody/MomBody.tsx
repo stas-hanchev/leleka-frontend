@@ -1,54 +1,39 @@
-'use client';
+import { MomBodyData } from '@/types/weeks';
+import css from './MomBody.module.css';
 
-import { useQuery } from '@tanstack/react-query';
-import { getMomBody } from '@/lib/services/weeksService';
-import styles from './MomBody.module.css';
+type Props = {
+  data: MomBodyData;
+};
 
-interface Props {
-  weekNumber: number;
-}
-
-export const MomBody = ({ weekNumber }: Props) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['momBody', weekNumber],
-    queryFn: () => getMomBody(weekNumber),
-  });
-
-  if (isLoading)
-    return <div className={styles.loader}>Завантаження даних для мами...</div>;
-  if (isError)
-    return <div className={styles.error}>Помилка завантаження даних</div>;
-
+export default function MomBody({ data }: Props) {
   return (
-    <div className={styles.container}>
-      <section className={styles.section}>
-        <h3 className={styles.title}>Як ви можете почуватись</h3>
-        <p className={styles.text}>
-          {data?.bodyDescription ||
-            'На цьому тижні ваше тіло продовжує адаптуватись до нових змін.'}
-        </p>
-      </section>
+    <div className={css.wrapper}>
+      {/* Feelings */}
+      <div className={css.block}>
+        <h3>Як ви можете почуватись</h3>
 
-      {data?.tips && data.tips.length > 0 && (
-        <section className={styles.section}>
-          <h3 className={styles.title}>Поради для вашого комфорту</h3>
-          <ul className={styles.tipsList}>
-            {data.tips.map((tip: string, index: number) => (
-              <li key={index} className={styles.tipItem}>
-                <span className={styles.checkIcon}>✓</span>
-                {tip}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+        <div className={css.tags}>
+          {data.feelings.states.map((state) => (
+            <span key={state}>{state}</span>
+          ))}
+        </div>
 
-      <div className={styles.warningCard}>
-        <p>
-          <strong>Важливо:</strong> Кожна вагітність індивідуальна. Якщо вас
-          щось турбує, обов&apos;язково зверніться до лікаря.
-        </p>
+        <p>{data.feelings.sensationDescr}</p>
+      </div>
+
+      {/* Comfort tips */}
+      <div className={css.block}>
+        <h3>Поради для вашого комфорту</h3>
+
+        <ul>
+          {data.comfortTips.map((tip, index) => (
+            <li key={index}>
+              <strong>{tip.category}</strong>
+              <p>{tip.tip}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
-};
+}

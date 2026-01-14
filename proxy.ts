@@ -5,13 +5,13 @@ import { checkServerSession } from './lib/api/serverApi';
 
 const privateRoutes = [
   '/auth/logout',
-  '/auth/',           
+  '/auth/',
   '/diaries',
   '/tasks',
   '/users/current',
   '/users/avatar',
   '/weeks/dashboard',
-  '/weeks/',          
+  '/weeks/',
 ];
 
 const publicRoutes = [
@@ -28,12 +28,15 @@ export async function proxy(request: NextRequest) {
   const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
 
-  const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
-  const isPrivateRoute = privateRoutes.some((route) => pathname.startsWith(route));
+  const isPublicRoute = publicRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+  const isPrivateRoute = privateRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
 
   if (!accessToken) {
     if (refreshToken) {
-      
       const data = await checkServerSession();
       const setCookie = data.headers['set-cookie'];
 
@@ -46,10 +49,12 @@ export async function proxy(request: NextRequest) {
             path: parsed.Path,
             maxAge: Number(parsed['Max-Age']),
           };
-          if (parsed.accessToken) cookieStore.set('accessToken', parsed.accessToken, options);
-          if (parsed.refreshToken) cookieStore.set('refreshToken', parsed.refreshToken, options);
+          if (parsed.accessToken)
+            cookieStore.set('accessToken', parsed.accessToken, options);
+          if (parsed.refreshToken)
+            cookieStore.set('refreshToken', parsed.refreshToken, options);
         }
-  
+
         if (isPublicRoute) {
           return NextResponse.redirect(new URL('/', request.url), {
             headers: {
@@ -57,7 +62,7 @@ export async function proxy(request: NextRequest) {
             },
           });
         }
-  
+
         if (isPrivateRoute) {
           return NextResponse.next({
             headers: {
@@ -67,7 +72,7 @@ export async function proxy(request: NextRequest) {
         }
       }
     }
-  
+
     if (isPublicRoute) {
       return NextResponse.next();
     }
@@ -79,7 +84,7 @@ export async function proxy(request: NextRequest) {
   if (isPublicRoute) {
     return NextResponse.redirect(new URL('/', request.url));
   }
- 
+
   if (isPrivateRoute) {
     return NextResponse.next();
   }
@@ -89,13 +94,13 @@ export const config = {
   matcher: [
     // Приватні маршрути
     '/auth/logout',
-    '/auth/:path*',          
-    '/diaries/:path*',        
-    '/tasks/:path*',          
+    '/auth/:path*',
+    '/diaries/:path*',
+    '/tasks/:path*',
     '/users/current',
     '/users/avatar',
     '/weeks/dashboard',
-    '/weeks/:path*',         
+    '/weeks/:path*',
     // Публічні маршрути
     '/auth/register',
     '/auth/login',
