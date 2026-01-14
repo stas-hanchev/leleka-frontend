@@ -1,0 +1,124 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 999;
+}
+
+.modal {
+    position: relative;
+    width: 100%;
+    max-width: 295px;
+    background: #ffffff;
+    border-radius: 40px;
+    padding: 64px 20px 40px;
+    text-align: center;
+    box-shadow: 0px 4px 48px rgba(0, 0, 0, 0.1);
+}
+
+.closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #000;
+}
+
+.title {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: #000;
+}
+
+/* Стилі для форми */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: left;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+}
+
+.input {
+    width: 100%;
+    height: 56px;
+    background: #F6F6F6;
+    /* Світло-сірий фон як на макеті */
+    border-radius: 12px;
+    border: 1px solid transparent;
+    padding: 0 16px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #ffdae0;
+}
+
+.error {
+    color: #ff4d4f;
+    font-size: 12px;
+    margin-top: 4px;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+}
+
+.saveButton {
+    margin-top: 16px;
+    width: 100%;
+    height: 56px;
+    background: #FFDAE0;
+    /* Рожевий колір */
+    border-radius: 100px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    /* Імітація тіні/бордера */
+    border-bottom: 4px solid rgba(0, 0, 0, 0.05);
+}
+
+.saveButton:hover {
+    opacity: 0.9;
+}
+
+/* Tablet & Desktop styles from colleague adapted */
+@media (min-width: 768px) {
+    .modal {
+        max-width: 640px;
+        padding: 64px 48px;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+}

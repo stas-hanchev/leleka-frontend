@@ -11,6 +11,7 @@ import { fetchTasks, updateTaskStatus } from "@/lib/api/taskApi";
 import { useTaskModalStore } from "@/lib/store/taskModalStore";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
+import { AddTaskModal } from "@/components/AddTaskModal/AddTaskModal";
 
 export default function TaskReminderCard() {
   const { isOpen, openModal } = useTaskModalStore();
@@ -87,8 +88,8 @@ export default function TaskReminderCard() {
           ))}
         </ul>
       )}
-
-      {/* {isOpen && <AddTaskModal />} */}
+      
+      {isOpen && <AddTaskModal />}
     </div>
   );
 }
