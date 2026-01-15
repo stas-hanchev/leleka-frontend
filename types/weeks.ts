@@ -4,13 +4,18 @@ export interface BabyDevelopmentData {
   interestingFact: string;
 }
 
+export interface ComfortTip {
+  _id: string;
+  category: string;
+  tip: string;
+}
+
+export interface Feelings {
+  states: string[];
+  sensationDescr: string;
+}
+
 export interface MomBodyData {
-  feelings: {
-    states: string[];
-    sensationDescr: string;
-  };
-  comfortTips: {
-    category: string;
-    tip: string;
-  }[];
+  feelings: Feelings;
+  comfortTips: ComfortTip[];
 }

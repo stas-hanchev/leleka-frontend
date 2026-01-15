@@ -2,10 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import {
-  getBabyDevelopment,
-  getMomBody,
-} from '../../../lib/services/weeksService';
+import { getBabyDevelopment, getMomBody } from '@/lib/services/weeksService';
 import BabyDevelopment from './BabyDevelopment/BabyDevelopment';
 import MomBody from './MomBody/MomBody';
 import css from './JourneyDetails.module.css';
@@ -33,7 +30,6 @@ export default function JourneyDetails({ weekNumber }: Props) {
 
   return (
     <section className={css.wrapper}>
-      {/* Tabs */}
       <div className={css.tabs}>
         <button
           className={activeTab === 'baby' ? css.active : ''}
@@ -49,11 +45,11 @@ export default function JourneyDetails({ weekNumber }: Props) {
         </button>
       </div>
 
-      {/* Content */}
       <div className={css.content}>
         {activeTab === 'baby' && (
           <>
             {babyQuery.isLoading && <p>Завантаження...</p>}
+            {babyQuery.isError && <p>Помилка при завантаженні даних</p>}
             {babyQuery.data && <BabyDevelopment data={babyQuery.data} />}
           </>
         )}
@@ -61,6 +57,7 @@ export default function JourneyDetails({ weekNumber }: Props) {
         {activeTab === 'mom' && (
           <>
             {momQuery.isLoading && <p>Завантаження...</p>}
+            {momQuery.isError && <p>Помилка при завантаженні даних</p>}
             {momQuery.data && <MomBody data={momQuery.data} />}
           </>
         )}

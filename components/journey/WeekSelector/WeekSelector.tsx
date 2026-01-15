@@ -34,7 +34,8 @@ const WeekSelector: React.FC<WeekSelectorProps> = ({
           } ${week > maxWeek ? styles.disabled : ''}`}
           disabled={week > maxWeek}
         >
-          {week} тиждень
+          <span className={styles.weekNumber}>{week}</span>
+          <span className={styles.weekText}>тиждень</span>
         </button>
       ))}
     </div>
