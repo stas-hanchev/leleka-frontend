@@ -22,11 +22,11 @@ export default function FeelingCard() {
   };
 
   return (
-    <div className={styles.card}>
-      <h3 className={styles.title}>Як ви себе почуваєте?</h3>
-      <p className={styles.subtitle}>Рекомендація на сьогодні:</p>
-      <p className={styles.text}>Занотуйте незвичні відчуття у тілі.</p>
-      <button className={styles.button} onClick={handleBtnClick}>
+    <div className={styles.feeling_card}>
+      <h3 className={styles.feeling_title}>Як ви себе почуваєте?</h3>
+      <p className={styles.feeling_subtitle}>Рекомендація на сьогодні:</p>
+      <p className={styles.feeling_text}>Занотуйте незвичні відчуття у тілі.</p>
+      <button className={styles.feeling_button} onClick={handleBtnClick}>
         Зробити запис у щоденник
       </button>
       {/* {isOpen && (

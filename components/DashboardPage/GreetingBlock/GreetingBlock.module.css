@@ -1,23 +1,32 @@
-.title {
-    font-family: "Comfortaa", sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 1.4;
-    letter-spacing: 0.01em;
-    color: #000;
-    margin-bottom: 16px;
-    width: 335px;
+.greeting_block {
+  padding: 0 12px;
+}
+
+.greeting_title {
+  padding: 0 0 0 0;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: #000;
+
+  margin-top: 0;
+  margin-bottom: 16px;
 }
 
 @media only screen and (min-width: 768px) {
-    .title {
-        width: auto;
-    }
+  .greeting_block {
+    padding: 0;
+  }
+  .greeting_title {
+    width: auto;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
-    .title {
-        font-size: 32px;
-        width: auto;
-    }
+  .greeting_title {
+    font-size: 32px;
+    width: auto;
+  }
 }
