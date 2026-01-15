@@ -4,9 +4,13 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import styles from './LoginForm.module.css';
 import toast from 'react-hot-toast';
+import styles from './LoginForm.module.css';
+
+import api from '@/lib/api/axios';
 import { useAuthStore } from '@/lib/store/authStore';
+import { User } from '@/types/user';
+import axios from 'axios';
 
 interface FormValues {
   email: string;
@@ -28,28 +32,25 @@ export default function LoginForm() {
     values: FormValues,
     { setSubmitting }: FormikHelpers<FormValues>
   ) => {
-    setSubmitting(true);
-
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
+      const { data } = await api.post<User>(
+        '/auth/login',
+        values
+      );
 
-      const data = await res.json();
+      setUser(data);
+     
 
-      if (res.ok) {
-        toast.success('Вхід успішний! Вітаємо 👋');
-        console.log(`Data: `, data);
-        const { name, email, avatarURL, babyGender, birthDate } = data;
-        setUser({ name, email, avatarURL, babyGender, birthDate });
-        router.push('/');
-      } else {
-        toast.error(data.error || 'Невірний email або пароль');
-      }
+      toast.success('Вхід успішний! Вітаємо 👋');
+      router.push('/');
     } catch (error: unknown) {
-      toast.error(error instanceof Error ? error.message : 'Помилка входу');
+      if (axios.isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.error || 'Невірний email або пароль'
+        );
+      } else {
+        toast.error('Помилка входу');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -62,11 +63,11 @@ export default function LoginForm() {
           <div className={styles.logoContainer}>
             <div className={styles.logoWrapper}>
               <div className={styles.logo}>
-                <svg width="31" height="30" className="icon-leleka">
-                  <use href="/icon-sprite.svg#icon-logo"></use>
+                <svg width="31" height="30">
+                  <use href="/icon-sprite.svg#icon-logo" />
                 </svg>
-                <svg width="61" height="13" className="text-leleka">
-                  <use href="/icon-sprite.svg#icon-leleka"></use>
+                <svg width="61" height="13">
+                  <use href="/icon-sprite.svg#icon-leleka" />
                 </svg>
               </div>
             </div>
@@ -87,9 +88,13 @@ export default function LoginForm() {
                     <Field
                       name="email"
                       type="email"
+                      autoComplete="email"
+                      disabled={isSubmitting}
                       placeholder="hello@leleka.com"
                       className={`${styles.input} ${
-                        errors.email && touched.email ? styles.inputError : ''
+                        errors.email && touched.email
+                          ? styles.inputError
+                          : ''
                       }`}
                     />
                     <ErrorMessage
@@ -98,11 +103,14 @@ export default function LoginForm() {
                       className={styles.error}
                     />
                   </label>
+
                   <label className={styles.label}>
                     Пароль*
                     <Field
                       name="password"
                       type="password"
+                      autoComplete="current-password"
+                      disabled={isSubmitting}
                       placeholder="********"
                       className={`${styles.input} ${
                         errors.password && touched.password
@@ -116,6 +124,7 @@ export default function LoginForm() {
                       className={styles.error}
                     />
                   </label>
+
                   <button
                     type="submit"
                     className={styles.button}
@@ -123,6 +132,7 @@ export default function LoginForm() {
                   >
                     {isSubmitting ? 'Завантаження...' : 'Увійти'}
                   </button>
+
                   <p className={styles.loginPrompt}>
                     Немає аккаунту?{' '}
                     <Link href="/auth/register" className={styles.loginLink}>
@@ -134,7 +144,7 @@ export default function LoginForm() {
             </Formik>
           </div>
         </div>
-        <div className={styles.background}></div>
+        <div className={styles.background} />
       </div>
     </section>
   );
