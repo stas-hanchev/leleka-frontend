@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './WeekSelector.module.css';
 
@@ -14,6 +14,17 @@ const WeekSelector: React.FC<WeekSelectorProps> = ({
   maxWeek,
 }) => {
   const router = useRouter();
+  const activeWeekRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (activeWeekRef.current) {
+      activeWeekRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [currentWeek]);
 
   const handleWeekClick = (week: number) => {
     if (week <= maxWeek) {
@@ -25,19 +36,25 @@ const WeekSelector: React.FC<WeekSelectorProps> = ({
 
   return (
     <div className={styles.weekContainer}>
-      {weeks.map((week) => (
-        <button
-          key={week}
-          onClick={() => handleWeekClick(week)}
-          className={`${styles.weekButton} ${
-            week === currentWeek ? styles.active : ''
-          } ${week > maxWeek ? styles.disabled : ''}`}
-          disabled={week > maxWeek}
-        >
-          <span className={styles.weekNumber}>{week}</span>
-          <span className={styles.weekText}>тиждень</span>
-        </button>
-      ))}
+      {weeks.map((week) => {
+        const isFuture = week > maxWeek;
+        const isSelected = week === currentWeek;
+
+        return (
+          <button
+            key={week}
+            ref={isSelected ? activeWeekRef : null}
+            onClick={() => handleWeekClick(week)}
+            className={`${styles.weekButton} ${
+              isSelected ? styles.active : ''
+            } ${isFuture ? styles.disabled : ''}`}
+            disabled={isFuture}
+          >
+            <span className={styles.weekNumber}>{week}</span>
+            <span className={styles.weekText}>тиждень</span>
+          </button>
+        );
+      })}
     </div>
   );
 };

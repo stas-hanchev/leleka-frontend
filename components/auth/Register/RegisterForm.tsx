@@ -4,9 +4,13 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import styles from './RegisterForm.module.css';
 import toast from 'react-hot-toast';
+import axios from 'axios';
+
+import styles from './RegisterForm.module.css';
+import api from '@/lib/api/axios';
 import { useAuthStore } from '@/lib/store/authStore';
+import { User } from '@/types/user';
 
 interface FormValues {
   name: string;
@@ -16,7 +20,9 @@ interface FormValues {
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Обов'язкове поле"),
-  email: Yup.string().email('Некоректний email').required("Обов'язкове поле"),
+  email: Yup.string()
+    .email('Некоректний email')
+    .required("Обов'язкове поле"),
   password: Yup.string()
     .min(8, 'Мінімум 8 символів')
     .required("Обов'язкове поле"),
@@ -30,32 +36,28 @@ export default function RegisterForm() {
     values: FormValues,
     { setSubmitting }: FormikHelpers<FormValues>
   ) => {
-    setSubmitting(true);
-
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
-
-      const data = await res.json();
-
-      if (res.status === 201) {
-        const { name, email, avatarURL, babyGender, birthDate } = data;
-        setUser({ name, email, avatarURL, babyGender, birthDate });
-
-        toast.success('Реєстрація успішна 🎉');
-        router.push('/profile/edit');
-      } else if (res.status === 400) {
-        toast.error('Цей email вже зареєстрований');
-      } else {
-        toast.error(data.error || 'Помилка реєстрації');
-      }
-    } catch (error: unknown) {
-      toast.error(
-        error instanceof Error ? error.message : 'Помилка реєстрації'
+      const { data } = await api.post<User>(
+        '/auth/register',
+        values
       );
+
+      setUser(data);
+
+      toast.success('Реєстрація успішна 🎉');
+      router.push('/profile/edit');
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          toast.error('Цей email вже зареєстрований');
+        } else {
+          toast.error(
+            error.response?.data?.error || 'Помилка реєстрації'
+          );
+        }
+      } else {
+        toast.error('Помилка реєстрації');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -89,10 +91,11 @@ export default function RegisterForm() {
               {({ isSubmitting, errors, touched, submitCount }) => (
                 <Form className={styles.form} noValidate>
                   <label className={styles.label}>
-                    Ім’я*
+                    Імʼя*
                     <Field
                       name="name"
                       placeholder="Ваше імʼя"
+                      disabled={isSubmitting}
                       className={`${styles.input} ${
                         errors.name && touched.name && submitCount > 0
                           ? styles.inputError
@@ -110,6 +113,9 @@ export default function RegisterForm() {
                     Пошта*
                     <Field
                       name="email"
+                      type="email"
+                      autoComplete="email"
+                      disabled={isSubmitting}
                       placeholder="hello@leleka.com"
                       className={`${styles.input} ${
                         errors.email && touched.email && submitCount > 0
@@ -129,9 +135,13 @@ export default function RegisterForm() {
                     <Field
                       name="password"
                       type="password"
+                      autoComplete="new-password"
+                      disabled={isSubmitting}
                       placeholder="********"
                       className={`${styles.input} ${
-                        errors.password && touched.password && submitCount > 0
+                        errors.password &&
+                        touched.password &&
+                        submitCount > 0
                           ? styles.inputError
                           : ''
                       }`}

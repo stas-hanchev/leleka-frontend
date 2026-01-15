@@ -15,6 +15,8 @@ export function getPregnancyWeekFromDueDate(dueDateISO: string, now = new Date()
 }
 
 export function getJourneyHref(birthDate: string | null | undefined): string {
+  // console.log(`BirthDate: ${birthDate}`);
+  if (birthDate===null) return `/journey/1`; 
   if (!birthDate) return "/auth/register";
   const week = getPregnancyWeekFromDueDate(birthDate);
   return `/journey/${week}`;
