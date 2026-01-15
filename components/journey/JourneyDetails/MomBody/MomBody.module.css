@@ -106,11 +106,7 @@
   color: var(--color-scheme-text);
   margin: 0;
 }
-/* @media (min-width: 768) {
-  .block {
-    max-width: 704px;
-  }
-} */
+
 @media (min-width: 1440px) {
   .wrapper {
     display: grid;

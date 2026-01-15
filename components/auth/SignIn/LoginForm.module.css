@@ -116,7 +116,6 @@
 
 .button {
   width: 100%;
-  /* max-width: 335px; */
   max-width: 480px;
   height: 42px;
   background: var(--color-scheme-foreground-alt);
@@ -227,7 +226,7 @@
   }
 
   .button {
-    max-width: 480px;
+    max-width: 450px;
     padding: 10px 24px;
   }
 
@@ -237,26 +236,25 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    max-width: 100%;
+    margin: 0;
+  }
 
-.wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  max-width: 100%;
-  margin: 0;
-}
-
-.containerRegister {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0;
-  min-height: auto;
-}
+  .containerRegister {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0;
+    min-height: auto;
+  }
 
   .logoWrapper {
     width: 100%;
