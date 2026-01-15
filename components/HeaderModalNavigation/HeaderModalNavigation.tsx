@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
 import UserBar from "../UserBar/UserBar";
 import { ModalLink } from "../ModalLink/ModalLink";
+import { getJourneyHref } from "@/lib/getJourneyHref/getJourneyHref";
 
 interface HeaderModalNavigationProps {
   onClose: () => void;
@@ -88,7 +89,7 @@ export default function HeaderModalNavigation({
               {/* Todo Bellow need complex solution */}
               {isAuthenticated ? (
                 <ModalLink
-                  href="/journey/1"
+                  href={getJourneyHref(user?.birthDate)}
                   aria-label="Jorney"
                   className={css.menu_link}
                   onNavigate={onClose}

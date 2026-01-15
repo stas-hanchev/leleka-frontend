@@ -42,8 +42,8 @@ export default function RegisterForm() {
       const data = await res.json();
 
       if (res.status === 201) {
-        const { name, email, avatarURL } = data;
-        setUser({ name, email, avatarURL });
+        const { name, email, avatarURL, babyGender, birthDate } = data;
+        setUser({ name, email, avatarURL, babyGender, birthDate });
 
         toast.success('Реєстрація успішна 🎉');
         router.push('/profile/edit');
