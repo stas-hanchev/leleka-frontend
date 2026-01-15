@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import css from "./AddDiaryEntryForm.module.css";
 import type { Note } from "@/types/diary";
-import { createNote, updateNote } from "@/lib/api";
+import { createNote, updateNote } from "@/lib/api/diarymodal";
 
 const TAGS = ["Натхнення", "Вдячність", "Тривога", "Дивні бажання", "Нудота"];
 
