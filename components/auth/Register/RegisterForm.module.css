@@ -200,7 +200,7 @@
     width: 100%;
   }
   .button {
-    max-width: 480px;
+    max-width: 450px;
     padding: 10px 24px;
   }
   .label {
@@ -209,7 +209,7 @@
 }
 
 @media screen and (min-width: 1440px) {
-.wrapper {
+  .wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -236,7 +236,7 @@
     display: flex;
     justify-content: flex-start;
   }
-  
+
   .containerTwo {
     flex: 1;
     display: flex;

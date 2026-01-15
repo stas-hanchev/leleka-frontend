@@ -5,11 +5,17 @@ import JourneyDetails from '@/components/journey/JourneyDetails/JourneyDetails';
 import WeekSelector from '@/components/journey/WeekSelector/WeekSelector';
 import css from './Week.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
+import { getPregnancyWeekFromDueDate } from '@/lib/getJourneyHref/getJourneyHref';
 
 const WeekPage = () => {
   const params = useParams();
-  const weekNumber = Number(params.weekNumber) || 1;
   const user = useAuthStore((s) => s.user);
+
+  const viewWeek = Number(params.weekNumber) || 1;
+
+  const userActualWeek = user?.birthDate
+    ? getPregnancyWeekFromDueDate(user.birthDate)
+    : 1;
 
   return (
     <div className={css['page']}>
@@ -18,9 +24,9 @@ const WeekPage = () => {
         <h2 className={css.title}>Доброго ранку {user && ', ' + user.name}!</h2>
       </div>
 
-      <WeekSelector currentWeek={weekNumber} maxWeek={weekNumber} />
+      <WeekSelector currentWeek={viewWeek} maxWeek={userActualWeek} />
 
-      <JourneyDetails weekNumber={weekNumber} />
+      <JourneyDetails weekNumber={viewWeek} />
     </div>
   );
 };
