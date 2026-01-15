@@ -1,11 +1,20 @@
-import { NextServer } from '../api/api';
+import axios from 'axios';
+import { BabyDevelopmentData, MomBodyData } from '@/types/weeks';
 
-export const getBabyDevelopment = async (weekNumber: number) => {
-  const { data } = await NextServer.get(`/weeks/${weekNumber}/baby`);
-  return data;
+const API_URL = 'http://localhost:3050/api/weeks';
+
+export const getBabyDevelopment = async (
+  weekNumber: number
+): Promise<BabyDevelopmentData> => {
+  const res = await axios.get(`${API_URL}/${weekNumber}/baby`, {
+    withCredentials: true,
+  });
+  return res.data;
 };
 
-export const getMomBody = async (weekNumber: number) => {
-  const { data } = await NextServer.get(`/weeks/${weekNumber}/body`);
-  return data;
+export const getMomBody = async (weekNumber: number): Promise<MomBodyData> => {
+  const res = await axios.get(`${API_URL}/${weekNumber}/body`, {
+    withCredentials: true,
+  });
+  return res.data;
 };

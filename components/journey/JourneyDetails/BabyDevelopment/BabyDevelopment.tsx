@@ -1,42 +1,38 @@
-'use client';
+import { BabyDevelopmentData } from '@/types/weeks';
+import css from './BabyDevelopment.module.css';
 
-import { useQuery } from '@tanstack/react-query';
-import { getBabyDevelopment } from '@/lib/services/weeksService';
-import styles from './BabyDevelopment.module.css';
+type Props = {
+  data: BabyDevelopmentData;
+};
 
-export const BabyDevelopment = ({ weekNumber }: { weekNumber: number }) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['babyDevelopment', weekNumber],
-    queryFn: () => getBabyDevelopment(weekNumber),
-  });
-
-  if (isLoading) return <div className={styles.loader}>Завантаження...</div>;
-  if (isError)
-    return <div className={styles.error}>Не вдалося завантажити дані</div>;
-
+export default function BabyDevelopment({ data }: Props) {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.imageContainer}>
-        <img
-          src={data?.image}
-          alt="Baby size"
-          className={styles.illustration}
-        />
-      </div>
-
-      <div className={styles.textBlock}>
-        <p className={styles.description}>{data?.babyDevelopment}</p>
-      </div>
-
-      {data?.interestingFact && (
-        <div className={styles.factCard}>
-          <div className={styles.factHeader}>
-            <span className={styles.icon}>💡</span>
-            <h4>Цікавий факт тижня</h4>
+    <div className={css.card}>
+      <div className={css.mainContent}>
+        {data.image && (
+          <div className={css.imageWrapper}>
+            <img
+              src={data.image}
+              alt="Baby illustration"
+              className={css.image}
+            />
           </div>
-          <p>{data.interestingFact}</p>
+        )}
+
+        <div className={css.textContent}>
+          <p className={css.text}>{data.babyDevelopment}</p>
+
+          <div className={css.fact}>
+            <div className={css.factHeader}>
+              <svg className={css.starIcon} width="24" height="24">
+                <use href="/icon-sprite.svg#icon-star" />
+              </svg>
+              <strong>Цікавий факт тижня</strong>
+            </div>
+            <p>{data.interestingFact}</p>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
-};
+}

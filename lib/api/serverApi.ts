@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextServer } from "./api";
+
 import type { User } from "@/types/user";
 
 export async function getCurrentUserServer(): Promise<User> {

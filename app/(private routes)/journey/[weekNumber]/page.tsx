@@ -2,27 +2,31 @@
 
 import { useParams } from 'next/navigation';
 import JourneyDetails from '@/components/journey/JourneyDetails/JourneyDetails';
-import { WeekSelector } from '@/components/journey/WeekSelector/WeekSelector';
+import WeekSelector from '@/components/journey/WeekSelector/WeekSelector';
 import css from './Week.module.css';
-import Link from 'next/link';
-import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import { useAuthStore } from '@/lib/store/authStore';
+import { getPregnancyWeekFromDueDate } from '@/lib/getJourneyHref/getJourneyHref';
 
 const WeekPage = () => {
   const params = useParams();
-  const weekNumber = Number(params.weekNumber) || 1;
+  const user = useAuthStore((s) => s.user);
+
+  const viewWeek = Number(params.weekNumber) || 1;
+
+  const userActualWeek = user?.birthDate
+    ? getPregnancyWeekFromDueDate(user.birthDate)
+    : 1;
 
   return (
     <div className={css['page']}>
       <div className={css.headerSection}>
-        <nav className={css.breadcrumbs}> 
-        Лелека &gt;  Подорож
-        </nav>
-        <h1 className={css.mainTitle}>Доброго ранку, Ганна!</h1>
+        <nav className={css.breadcrumbs}>Лелека &gt; Подорож</nav>
+        <h2 className={css.title}>Доброго ранку {user && ', ' + user.name}!</h2>
       </div>
 
-      <WeekSelector currentWeek={weekNumber} />
+      <WeekSelector currentWeek={viewWeek} maxWeek={userActualWeek} />
 
-      <JourneyDetails weekNumber={weekNumber} />
+      <JourneyDetails weekNumber={viewWeek} />
     </div>
   );
 };

@@ -41,7 +41,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanStackProvider>
           {children}
-          <Toaster position="top-right" />
+          <Toaster position="top-right" toastOptions={{ duration: 2000 }} />
         </TanStackProvider>
       </body>
     </html>

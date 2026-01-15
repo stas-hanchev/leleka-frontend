@@ -101,7 +101,7 @@
 }
 
 .checkboxLabel input::after {
-  content: "";
+  content: '';
   width: 11px;
   height: 6px;
   border-left: 2.5px solid #fff;
@@ -207,7 +207,7 @@
 
 @media screen and (min-width: 768px) {
   .section {
-    max-width: 704px;
+    max-width: 728px;
     height: auto;
   }
 }

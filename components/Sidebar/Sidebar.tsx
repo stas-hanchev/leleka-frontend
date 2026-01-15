@@ -1,10 +1,21 @@
-import Link from "next/link";
-import css from "./Sidebar.module.css";
-import { useAuthStore } from "@/lib/store/authStore";
-import UserBar from "../UserBar/UserBar";
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import css from './Sidebar.module.css';
+import { useAuthStore } from '@/lib/store/authStore';
+import UserBar from '../UserBar/UserBar';
+import { getJourneyHref } from '@/lib/getJourneyHref/getJourneyHref';
 
 export default function Sidebar() {
   const { isAuthenticated, user } = useAuthStore();
+  const pathname = usePathname();
+
+  const getLinkClassName = (href: string) => {
+    const isActive =
+      pathname === href ||
+      (href.startsWith('/journey') && pathname.startsWith('/journey'));
+    return `${css.menu_link} ${isActive ? css.active_link : ''}`;
+  };
 
   return (
     <aside className={css.sidebar}>
@@ -12,10 +23,10 @@ export default function Sidebar() {
         <div className={css.top_modal_container}>
           <div className={css.logo_container}>
             <Link href="/" aria-label="Home" className={css.logo_link}>
-              <svg width="29.6" height="29.6" className="header-logo">
+              <svg width="29.6" height="29.6">
                 <use href="/icon-sprite.svg#icon-logo"></use>
               </svg>
-              <svg width="61" height="13" className="header-logo">
+              <svg width="61" height="13">
                 <use href="/icon-sprite.svg#icon-leleka"></use>
               </svg>
             </Link>
@@ -23,20 +34,19 @@ export default function Sidebar() {
 
           <ul className={css.navigation_list}>
             <li className={css.navigation_list_item}>
-              <Link href="/" aria-label="My day" className={css.menu_link}>
+              <Link href="/" className={getLinkClassName('/')}>
                 <svg width="24" height="24" className={css.list_item_svg}>
                   <use href="/icon-sprite.svg#icon-today"></use>
                 </svg>
                 Мій день
               </Link>
             </li>
+
             <li className={css.navigation_list_item}>
-              {/* Todo Bellow need complex solution */}
               {isAuthenticated ? (
                 <Link
-                  href="/journey/1"
-                  aria-label="Jorney"
-                  className={css.menu_link}
+                  href={getJourneyHref(user?.birthDate)}
+                  className={getLinkClassName(getJourneyHref(user?.birthDate))}
                 >
                   <svg width="24" height="24" className={css.list_item_svg}>
                     <use href="/icon-sprite.svg#icon-conversion-path"></use>
@@ -46,8 +56,7 @@ export default function Sidebar() {
               ) : (
                 <Link
                   href="/auth/register"
-                  aria-label="Register"
-                  className={css.menu_link}
+                  className={getLinkClassName('/auth/register')}
                 >
                   <svg width="24" height="24" className={css.list_item_svg}>
                     <use href="/icon-sprite.svg#icon-conversion-path"></use>
@@ -56,75 +65,46 @@ export default function Sidebar() {
                 </Link>
               )}
             </li>
+
             <li className={css.navigation_list_item}>
-              {isAuthenticated ? (
-                <Link
-                  href="/diary"
-                  aria-label="Diary"
-                  className={css.menu_link}
-                >
-                  <svg width="24" height="24" className={css.list_item_svg}>
-                    <use href="/icon-sprite.svg#icon-book"></use>
-                  </svg>
-                  Щоденник
-                </Link>
-              ) : (
-                <Link
-                  href="/auth/register"
-                  aria-label="Register"
-                  className={css.menu_link}
-                >
-                  <svg width="24" height="24" className={css.list_item_svg}>
-                    <use href="/icon-sprite.svg#icon-book"></use>
-                  </svg>
-                  Щоденник
-                </Link>
-              )}
+              <Link
+                href={isAuthenticated ? '/diary' : '/auth/register'}
+                className={getLinkClassName(
+                  isAuthenticated ? '/diary' : '/auth/register'
+                )}
+              >
+                <svg width="24" height="24" className={css.list_item_svg}>
+                  <use href="/icon-sprite.svg#icon-book"></use>
+                </svg>
+                Щоденник
+              </Link>
             </li>
+
             <li className={css.navigation_list_item}>
-              {isAuthenticated ? (
-                <Link
-                  href="/profile"
-                  aria-label="Home"
-                  className={css.menu_link}
-                >
-                  <svg width="24" height="24" className={css.list_item_svg}>
-                    <use href="/icon-sprite.svg#icon-account-circle"></use>
-                  </svg>
-                  Профіль
-                </Link>
-              ) : (
-                <Link
-                  href="/auth/register"
-                  aria-label="Register"
-                  className={css.menu_link}
-                >
-                  <svg width="24" height="24" className={css.list_item_svg}>
-                    <use href="/icon-sprite.svg#icon-account-circle"></use>
-                  </svg>
-                  Профіль
-                </Link>
-              )}
+              <Link
+                href={isAuthenticated ? '/profile' : '/auth/register'}
+                className={getLinkClassName(
+                  isAuthenticated ? '/profile' : '/auth/register'
+                )}
+              >
+                <svg width="24" height="24" className={css.list_item_svg}>
+                  <use href="/icon-sprite.svg#icon-account-circle"></use>
+                </svg>
+                Профіль
+              </Link>
             </li>
           </ul>
         </div>
+
         <div className={css.bottom_modal_container}>
           {isAuthenticated ? (
             <UserBar user={user!} />
           ) : (
             <div className={css.btns_container}>
-              <Link
-                className={css.register_btn}
-                href="/auth/register"
-                aria-label="Register"
-              >
+              <Link className={css.register_btn} href="/auth/register">
                 Зареєструватись
               </Link>
-              <Link
-                className={css.login_btn}
-                href="/auth/login"
-                aria-label="Login"
-              >
+              <Link className={css.login_btn} href="/auth/login">
                 Увійти
               </Link>
             </div>

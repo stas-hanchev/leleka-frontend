@@ -1,54 +1,61 @@
-'use client';
+import { MomBodyData } from '@/types/weeks';
+import css from './MomBody.module.css';
+import TaskReminderCard from '@/components/DashboardPage/TaskReminderCard/TaskReminderCard';
 
-import { useQuery } from '@tanstack/react-query';
-import { getMomBody } from '@/lib/services/weeksService';
-import styles from './MomBody.module.css';
+type Props = {
+  data: MomBodyData;
+};
 
-interface Props {
-  weekNumber: number;
-}
+const getIconId = (category: string) => {
+  switch (category) {
+    case 'Харчування':
+      return '/icon-sprite.svg#icon-fork-spoon';
+    case 'Активність':
+      return '/icon-sprite.svg#icon-fitness';
+    case 'Відпочинок та комфорт':
+      return '/icon-sprite.svg#icon-chair';
+    default:
+      return '';
+  }
+};
 
-export const MomBody = ({ weekNumber }: Props) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['momBody', weekNumber],
-    queryFn: () => getMomBody(weekNumber),
-  });
-
-  if (isLoading)
-    return <div className={styles.loader}>Завантаження даних для мами...</div>;
-  if (isError)
-    return <div className={styles.error}>Помилка завантаження даних</div>;
-
+export default function MomBody({ data }: Props) {
   return (
-    <div className={styles.container}>
-      <section className={styles.section}>
-        <h3 className={styles.title}>Як ви можете почуватись</h3>
-        <p className={styles.text}>
-          {data?.bodyDescription ||
-            'На цьому тижні ваше тіло продовжує адаптуватись до нових змін.'}
-        </p>
-      </section>
+    <div className={css.wrapper}>
+      <div className={css.leftColumn}>
+        <div className={css.block}>
+          <h3 className={css.blockTitle}>Як ви можете почуватись</h3>
+          <div className={css.tags}>
+            {data.feelings.states.map((state) => (
+              <span key={state} className={css.tag}>
+                {state}
+              </span>
+            ))}
+          </div>
+          <p className={css.description}>{data.feelings.sensationDescr}</p>
+        </div>
 
-      {data?.tips && data.tips.length > 0 && (
-        <section className={styles.section}>
-          <h3 className={styles.title}>Поради для вашого комфорту</h3>
-          <ul className={styles.tipsList}>
-            {data.tips.map((tip: string, index: number) => (
-              <li key={index} className={styles.tipItem}>
-                <span className={styles.checkIcon}>✓</span>
-                {tip}
+        <div className={css.block}>
+          <h3 className={css.blockTitle}>Поради для вашого комфорту</h3>
+          <ul className={css.tipsList}>
+            {data.comfortTips.map((tip) => (
+              <li key={tip._id} className={css.tipItem}>
+                <div className={css.iconContainer}>
+                  <svg className={css.icon}>
+                    <use href={getIconId(tip.category)} />
+                  </svg>
+                </div>
+                <div className={css.tipContent}>
+                  <strong className={css.tipCategory}>{tip.category}</strong>
+                  <p className={css.tipText}>{tip.tip}</p>
+                </div>
               </li>
             ))}
           </ul>
-        </section>
-      )}
-
-      <div className={styles.warningCard}>
-        <p>
-          <strong>Важливо:</strong> Кожна вагітність індивідуальна. Якщо вас
-          щось турбує, обов&apos;язково зверніться до лікаря.
-        </p>
+        </div>
       </div>
+
+      <TaskReminderCard />
     </div>
   );
-};
+}

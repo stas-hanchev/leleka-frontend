@@ -1,41 +1,65 @@
 'use client';
 
 import { useState } from 'react';
-import { BabyDevelopment } from './BabyDevelopment/BabyDevelopment';
-import { MomBody } from './MomBody/MomBody';
-import styles from './JourneyDetails.module.css';
+import { useQuery } from '@tanstack/react-query';
+import { getBabyDevelopment, getMomBody } from '@/lib/services/weeksService';
+import BabyDevelopment from './BabyDevelopment/BabyDevelopment';
+import MomBody from './MomBody/MomBody';
+import css from './JourneyDetails.module.css';
 
-interface JourneyDetailsProps {
+type Props = {
   weekNumber: number;
-}
+};
 
-export default function JourneyDetails({ weekNumber }: JourneyDetailsProps) {
-  const [activeTab, setActiveTab] = useState<'baby' | 'mom'>('baby');
+type Tab = 'baby' | 'mom';
+
+export default function JourneyDetails({ weekNumber }: Props) {
+  const [activeTab, setActiveTab] = useState<Tab>('baby');
+
+  const babyQuery = useQuery({
+    queryKey: ['baby', weekNumber],
+    queryFn: () => getBabyDevelopment(weekNumber),
+    enabled: activeTab === 'baby',
+  });
+
+  const momQuery = useQuery({
+    queryKey: ['mom', weekNumber],
+    queryFn: () => getMomBody(weekNumber),
+    enabled: activeTab === 'mom',
+  });
 
   return (
-    <section className={styles.wrapper}>
-      <div className={styles.tabsContainer}>
+    <section className={css.wrapper}>
+      <div className={css.tabs}>
         <button
-          type="button"
-          className={activeTab === 'baby' ? styles.activeTab : styles.tab}
+          className={activeTab === 'baby' ? css.active : ''}
           onClick={() => setActiveTab('baby')}
         >
           Розвиток малюка
         </button>
         <button
-          type="button"
-          className={activeTab === 'mom' ? styles.activeTab : styles.tab}
+          className={activeTab === 'mom' ? css.active : ''}
           onClick={() => setActiveTab('mom')}
         >
           Тіло мами
         </button>
       </div>
 
-      <div className={styles.scrollArea}>
-        {activeTab === 'baby' ? (
-          <BabyDevelopment weekNumber={weekNumber} />
-        ) : (
-          <MomBody weekNumber={weekNumber} />
+      <div className={css.content}>
+        {activeTab === 'baby' && (
+          <>
+            {babyQuery.isLoading && <p>Завантаження...</p>}
+            {babyQuery.isError && <p>Помилка при завантаженні даних</p>}
+            {babyQuery.data && <BabyDevelopment data={babyQuery.data} />}
+          </>
+        )}
+
+        {activeTab === 'mom' && (
+          <>
+            {momQuery.isLoading && <p>Завантаження...</p>}
+            {momQuery.isError && <p>Помилка при завантаженні даних</p>}
+            {momQuery.data && <MomBody data={momQuery.data} />}
+          </>
         )}
       </div>
     </section>

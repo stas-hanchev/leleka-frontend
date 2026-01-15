@@ -1,40 +1,53 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.tabsContainer {
+.tabs {
   display: flex;
-  background-color: #fdf2f2;
-  padding: 4px;
+  background: var(--color-scheme-foreground);
   border-radius: 100px;
+  padding: 4px;
+  margin-bottom: 16px;
   width: 100%;
 }
 
-.tab,
-.activeTab {
+.tabs button {
   flex: 1;
-  padding: 10px 16px;
   border: none;
-  font-family: inherit;
+  background: transparent;
+  padding: 10px 0;
+  border-radius: 100px;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 100px;
+  color: var(--color-scheme-text);
+  transition: all 0.2s ease;
 }
 
-.tab {
-  background: transparent;
-  color: #4a4a4a;
+.tabs button.active {
+  background: var(--color-scheme-foreground-alt);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 }
-
-.activeTab {
-  background-color: #f8ccd1;
-  color: #000000;
+@media screen and (min-width: 768px) {
+  .tabs {
+    max-width: 704px;
+  }
 }
-
-.scrollArea {
-  height: auto;
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .tabs {
+    max-width: 572px;
+    width: 100%;
+  }
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }

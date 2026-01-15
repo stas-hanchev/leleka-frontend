@@ -1,51 +1,63 @@
-.container {
-  width: 100%;
+.weekContainer {
+  display: flex;
+  gap: 16px;
   overflow-x: auto;
-  padding: 10px 0;
+  scrollbar-width: none;
+  margin-bottom: 32px;
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.container::-webkit-scrollbar {
+.weekContainer::-webkit-scrollbar {
   display: none;
 }
 
-.scrollWrapper {
-  display: flex;
-  gap: 12px;
-  padding: 4px;
+.weekNumber {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 24px;
+
+  line-height: 34px;
+  text-align: center;
+  color: var(--color-scheme-text);
 }
 
-.weekCard {
-  min-width: 85px;
-  height: 90px;
-  background: #f8f8f8;
-  border-radius: 20px;
-  border: none;
+.weekText {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: var(--color-scheme-text);
+}
+
+.weekButton {
+  flex: 0 0 97px;
+  height: 87px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 32px;
+  border: 4px solid transparent;
+  background: var(--color-scheme-foreground);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.weekNumber {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 4px;
+.weekButton.active {
+  background: var(--color-scheme-foreground-alt);
+  border: 4px solid var(--color-scheme-border);
 }
 
-.weekText {
-  font-size: 12px;
-  color: #7a7a7a;
+.weekButton:not(.active):not(.disabled) {
+  background: var(--color-scheme-foreground);
+  border: 4px solid transparent;
 }
 
-.active {
-  background-color: #f8ccd1;
-  box-shadow: 0px 4px 10px rgba(248, 204, 209, 0.4);
-}
-
-.active .weekNumber,
-.active .weekText {
-  color: #000000;
+.weekButton.disabled {
+  opacity: 0.5;
+  background: var(--color-neutral-lightest);
+  border: 4px solid transparent;
+  cursor: not-allowed;
 }

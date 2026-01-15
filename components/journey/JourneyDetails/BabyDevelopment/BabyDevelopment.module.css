@@ -1,66 +1,117 @@
-.wrapper {
+.card {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  background: var(--color-scheme-foreground);
+  padding: 24px;
+  border-radius: 32px;
+  border: 0px solid var(--color-scheme-border);
 }
 
-.imageContainer {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background-color: #ffffff;
-  border: 1px solid #f0f0f0;
-  border-radius: 24px;
-  overflow: hidden;
+.mainContent {
   display: flex;
+  flex-direction: column;
+}
+
+.imageWrapper {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
 }
 
-.illustration {
+.image {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.textBlock {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #2d2d2d;
-}
-
-.description {
-  white-space: pre-wrap;
-}
-
-.factCard {
-  background-color: #fdf2f2;
+  height: auto;
   border-radius: 20px;
-  padding: 20px;
+  border: 1px solid var(--color-scheme-border);
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.textContent {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+}
+
+.text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-scheme-text);
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+.fact {
+  background: var(--color-scheme-foreground-alt);
+  border-radius: 12px;
+  padding: 12px;
+  width: 100%;
+  max-width: 327px;
 }
 
 .factHeader {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
-.factHeader h4 {
-  margin: 0;
-  font-size: 16px;
+.starIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: var(--color-scheme-text);
+}
+
+.fact strong {
+  display: block;
+  font-family: var(--font-family);
   font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-scheme-text);
 }
 
-.icon {
-  font-size: 20px;
+.fact p {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  color: var(--color-scheme-text);
 }
 
-.loader,
-.error {
-  text-align: center;
-  padding: 40px;
-  color: #888;
+@media screen and (min-width: 768px) {
+  .card {
+    padding: 32px;
+  }
+  .fact {
+    max-width: 656px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .card {
+    max-width: 1064px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .mainContent {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .imageWrapper {
+    flex: 0 0 450px;
+    align-items: flex-start;
+  }
+
+  .image {
+    max-width: 100%;
+  }
+
+  .textContent {
+    flex: 1;
+  }
 }

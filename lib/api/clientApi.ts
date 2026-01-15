@@ -1,5 +1,24 @@
+import axios from "axios";
 import { NextServer } from "./api";
 import type { User, UpdateUserPayload } from "@/types/user";
+
+export const checkSession = async (): Promise<boolean> => {
+  try {
+    await axios.get("/api/auth/session");
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const getMe = async (): Promise<User | null> => {
+  try {
+    const { data } = await axios.get<User>("/api/auth/session");
+    return data;
+  } catch {
+    return null;
+  }
+};
 
 export async function getCurrentUser(): Promise<User> {
   const { data } = await NextServer.get<User>("/users/current");
