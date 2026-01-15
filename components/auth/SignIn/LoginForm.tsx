@@ -41,11 +41,9 @@ export default function LoginForm() {
 
       if (res.ok) {
         toast.success('Вхід успішний! Вітаємо 👋');
-        // console.log(`Data: `, data);
-        const name = data.name;
-        const email = data.email;
-        const avatarURL = data.avatarURL;
-        setUser({ name, email, avatarURL });
+        console.log(`Data: `, data);
+        const { name, email, avatarURL, babyGender, birthDate } = data;
+        setUser({ name, email, avatarURL, babyGender, birthDate });
         router.push('/');
       } else {
         toast.error(data.error || 'Невірний email або пароль');

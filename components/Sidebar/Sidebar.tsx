@@ -2,6 +2,7 @@ import Link from "next/link";
 import css from "./Sidebar.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
 import UserBar from "../UserBar/UserBar";
+import { getJourneyHref } from "@/lib/getJourneyHref/getJourneyHref";
 
 export default function Sidebar() {
   const { isAuthenticated, user } = useAuthStore();
@@ -34,7 +35,7 @@ export default function Sidebar() {
               {/* Todo Bellow need complex solution */}
               {isAuthenticated ? (
                 <Link
-                  href="/journey/1"
+                  href={getJourneyHref(user?.birthDate)}
                   aria-label="Jorney"
                   className={css.menu_link}
                 >
