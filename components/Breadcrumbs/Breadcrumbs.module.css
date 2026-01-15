@@ -1,50 +1,66 @@
-
-
 .nav {
-  padding: 16px 0;
+  padding-top: 24px; /* сверху от хедера */
+  padding-left: 32px; /* слева */
+  font-family: var(--font-family);
 }
 
 .list {
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
 
-  list-style: none;
   margin: 0;
   padding: 0;
-  align-items: center;
+  list-style: none;
 }
 
+/* общий стиль всех элементов */
 .item {
   display: flex;
   align-items: center;
-  margin-right: 8px;
+  gap: 8px;
 }
 
-.link_leleka {
-  font-family: var(--font-family);
+/* ССЫЛКИ (не последний элемент) */
+.link {
   font-weight: 400;
   font-size: 12px;
-  line-height: 160%;
+  line-height: 1.6;
   text-align: center;
+
+  color: var(--color-scheme-text);
+  text-decoration: none; /* убираем подчеркивание */
+}
+
+/* убираем мусорные состояния ссылок */
+.link:visited {
   color: var(--color-scheme-text);
 }
 
-.link_leleka:hover,
-.link_leleka:focus {
-  color: var(--color-scheme-text);
-  text-decoration: underline;
+.link:hover,
+.link:focus-visible {
+  text-decoration: none;
+  outline: none;
 }
 
-.separator {
-  color: var(--color-scheme-text);
-  margin: 0 8px; 
-  font-size: 16px;
-}
-
+/* ТЕКУЩИЙ элемент (последний) */
 .current {
- font-family: var(--font-family);
-font-weight: 400;
-font-size: 12px;
-line-height: 160%;
-text-align: center;
-color: var(--color-neutral);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+
+  color: var(--color-neutral);
+}
+
+/* SVG-стрелка */
+.arrow {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex: 0 0 24px;
+
+  color: var(--color-scheme-text); /* цвет стрелки как у активных */
 }
