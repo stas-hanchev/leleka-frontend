@@ -1,32 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { parse } from 'cookie';
-import { checkServerSession } from './lib/api/serverApi';
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { parse } from "cookie";
+import { checkServerSession } from "./lib/api/serverApi";
 
 const privateRoutes = [
-  '/auth/logout',
-  '/auth/',
-  '/diaries',
-  '/tasks',
-  '/users/current',
-  '/users/avatar',
-  '/weeks/dashboard',
-  '/weeks/',
+  "/auth/logout",
+  "/auth/",
+  "/diaries",
+  "/tasks",
+  "/users/current",
+  "/users/avatar",
+  "/weeks/dashboard",
+  "/weeks/",
 ];
 
 const publicRoutes = [
-  '/auth/register',
-  '/auth/login',
-  '/auth/refresh',
-  '/auth/request-reset-email',
-  '/auth/reset-password',
+  "/auth/register",
+  "/auth/login",
+  "/auth/refresh",
+  "/auth/request-reset-email",
+  "/auth/reset-password",
 ];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
-  const refreshToken = cookieStore.get('refreshToken')?.value;
+  const accessToken = cookieStore.get("accessToken")?.value;
+  const refreshToken = cookieStore.get("refreshToken")?.value;
 
   const isPublicRoute = publicRoutes.some((route) =>
     pathname.startsWith(route)
@@ -38,7 +38,7 @@ export async function proxy(request: NextRequest) {
   if (!accessToken) {
     if (refreshToken) {
       const data = await checkServerSession();
-      const setCookie = data.headers['set-cookie'];
+      const setCookie = data.headers["set-cookie"];
 
       if (setCookie) {
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
@@ -47,16 +47,16 @@ export async function proxy(request: NextRequest) {
           const options = {
             expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
             path: parsed.Path,
-            maxAge: Number(parsed['Max-Age']),
+            maxAge: Number(parsed["Max-Age"]),
           };
           if (parsed.accessToken)
-            cookieStore.set('accessToken', parsed.accessToken, options);
+            cookieStore.set("accessToken", parsed.accessToken, options);
           if (parsed.refreshToken)
-            cookieStore.set('refreshToken', parsed.refreshToken, options);
+            cookieStore.set("refreshToken", parsed.refreshToken, options);
         }
 
         if (isPublicRoute) {
-          return NextResponse.redirect(new URL('/', request.url), {
+          return NextResponse.redirect(new URL("/", request.url), {
             headers: {
               Cookie: cookieStore.toString(),
             },
@@ -77,12 +77,12 @@ export async function proxy(request: NextRequest) {
       return NextResponse.next();
     }
     if (isPrivateRoute) {
-      return NextResponse.redirect(new URL('/auth/login', request.url));
+      return NextResponse.redirect(new URL("/auth/login", request.url));
     }
   }
 
   if (isPublicRoute) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (isPrivateRoute) {
@@ -93,19 +93,19 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     // Приватні маршрути
-    '/auth/logout',
-    '/auth/:path*',
-    '/diaries/:path*',
-    '/tasks/:path*',
-    '/users/current',
-    '/users/avatar',
-    '/weeks/dashboard',
-    '/weeks/:path*',
+    "/auth/logout",
+    "/auth/:path*",
+    "/diaries/:path*",
+    "/tasks/:path*",
+    "/users/current",
+    "/users/avatar",
+    "/weeks/dashboard",
+    "/weeks/:path*",
     // Публічні маршрути
-    '/auth/register',
-    '/auth/login',
-    '/auth/refresh',
-    '/auth/request-reset-email',
-    '/auth/reset-password',
+    "/auth/register",
+    "/auth/login",
+    "/auth/refresh",
+    "/auth/request-reset-email",
+    "/auth/reset-password",
   ],
 };
