@@ -40,7 +40,10 @@ export const OnboardingForm: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
         setIsGenderOpen(false);
       }
     };
@@ -59,11 +62,9 @@ export const OnboardingForm: React.FC = () => {
     }
   };
 
-  const ensureAccessToken = async () => {
-    // має бути endpoint, який по refreshToken виставляє accessToken cookie
-    // назву підстав свою: /auth/refresh, /auth/refresh-token тощо
-    await NextServer.post('/api/auth/refresh');
-  };
+  // const ensureAccessToken = async () => {
+  //   await NextServer.post('/api/auth/refresh');
+  // };
 
   const formik = useFormik<OnboardingFormValues>({
     initialValues: {
@@ -75,13 +76,16 @@ export const OnboardingForm: React.FC = () => {
     onSubmit: async (values, { setSubmitting }) => {
       try {
         // 0) отримати accessToken cookie (бо зараз є тільки refreshToken)
-        await ensureAccessToken();
+        // await ensureAccessToken();
 
         // 1) avatar
         if (values.avatar) {
           const fd = new FormData();
           fd.append('avatar', values.avatar);
-          const { data } = await NextServer.patch<UploadAvatarResponse>('/api/users/avatar', fd); // НЕ став Content-Type вручну
+          const { data } = await NextServer.patch<UploadAvatarResponse>(
+            '/api/users/avatar',
+            fd
+          ); // НЕ став Content-Type вручну
         }
 
         // 2) text
@@ -92,7 +96,9 @@ export const OnboardingForm: React.FC = () => {
 
         const { data } = await NextServer.patch<User>('/api/users/current', {
           ...(babyGender ? { babyGender } : {}),
-          birthDate: values.deliveryDate ? values.deliveryDate.toISOString() : null,
+          birthDate: values.deliveryDate
+            ? values.deliveryDate.toISOString()
+            : null,
         });
         // console.log('TextData: ', data);
         setUser(data);
@@ -162,7 +168,12 @@ export const OnboardingForm: React.FC = () => {
                   onClick={() => fileInputRef.current?.click()}
                 >
                   {preview ? (
-                    <Image src={preview} alt="Аватар" fill className={styles.image} />
+                    <Image
+                      src={preview}
+                      alt="Аватар"
+                      fill
+                      className={styles.image}
+                    />
                   ) : (
                     <div className={styles.placeholder}>
                       <svg
@@ -206,13 +217,19 @@ export const OnboardingForm: React.FC = () => {
                     <div
                       className={`${styles.selectField}
                         ${isGenderOpen ? styles.active : ''}
-                        ${formik.touched.gender && formik.errors.gender ? styles.inputInvalid : ''}
+                        ${
+                          formik.touched.gender && formik.errors.gender
+                            ? styles.inputInvalid
+                            : ''
+                        }
                         ${shakeGender ? styles.shake : ''}`}
                       onClick={() => setIsGenderOpen(!isGenderOpen)}
                     >
                       <span
                         className={
-                          formik.values.gender ? styles.selectedText : styles.placeholderText
+                          formik.values.gender
+                            ? styles.selectedText
+                            : styles.placeholderText
                         }
                       >
                         {formik.values.gender === 'boy'
@@ -225,7 +242,9 @@ export const OnboardingForm: React.FC = () => {
                       </span>
 
                       <svg
-                        className={`${styles.selectArrow} ${isGenderOpen ? styles.rotated : ''}`}
+                        className={`${styles.selectArrow} ${
+                          isGenderOpen ? styles.rotated : ''
+                        }`}
                         width="24"
                         height="14"
                       >
@@ -277,25 +296,39 @@ export const OnboardingForm: React.FC = () => {
                   <div className={styles.datePickerWrapper}>
                     <DatePicker
                       selected={formik.values.deliveryDate}
-                      onChange={(date: Date | null) => formik.setFieldValue('deliveryDate', date)}
+                      onChange={(date: Date | null) =>
+                        formik.setFieldValue('deliveryDate', date)
+                      }
                       dateFormat="dd.MM.yyyy"
                       locale="uk"
                       wrapperClassName={styles.datePickerCustom}
                       className={`${styles.input}
-                        ${formik.touched.deliveryDate && formik.errors.deliveryDate ? styles.inputInvalid : ''}
+                        ${
+                          formik.touched.deliveryDate &&
+                          formik.errors.deliveryDate
+                            ? styles.inputInvalid
+                            : ''
+                        }
                         ${shakeDate ? styles.shake : ''}`}
                       placeholderText="16.07.2025"
                       autoComplete="off"
                     />
                   </div>
 
-                  {formik.touched.deliveryDate && formik.errors.deliveryDate && (
-                    <span className={styles.error}>{String(formik.errors.deliveryDate)}</span>
-                  )}
+                  {formik.touched.deliveryDate &&
+                    formik.errors.deliveryDate && (
+                      <span className={styles.error}>
+                        {String(formik.errors.deliveryDate)}
+                      </span>
+                    )}
                 </div>
               </div>
 
-              <button type="submit" className={styles.button} disabled={formik.isSubmitting}>
+              <button
+                type="submit"
+                className={styles.button}
+                disabled={formik.isSubmitting}
+              >
                 {formik.isSubmitting ? 'Збереження...' : 'Зберегти'}
               </button>
             </form>
