@@ -1,0 +1,22 @@
+.card {
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--color-scheme-foreground);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* .card:hover {
+    background-color: #ececec;
+} */
+
+.title {
+    font-size: 14px;
+    font-weight: 500;
+    background-color: var(--color-scheme-foreground-alt);
+}
+
+.date {
+    font-size: 12px;
+    color: #777;
+}
