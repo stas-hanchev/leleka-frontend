@@ -41,3 +41,4 @@ export async function uploadAvatar(file: File): Promise<{ avatarUrl: string }> {
 
   return data;
 }
+

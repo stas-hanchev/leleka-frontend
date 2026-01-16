@@ -1,62 +1,28 @@
-export const dynamic = "force-dynamic";
+import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { serverApi } from '@/lib/api/serverApi';
+import axios from 'axios';
 
-import { NextResponse } from "next/server";
-import { lehlekaApi } from "../../api";
-import { cookies } from "next/headers";
-import { logErrorResponse } from "../../_utils/utils";
-import { isAxiosError } from "axios";
-
-export async function GET() {
+export async function PATCH(req: Request) {
   try {
     const cookieStore = await cookies();
+    const accessToken = cookieStore.get('accessToken')?.value;
 
-    const res = await lehlekaApi.get("/users/current", {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
+    const formData = await req.formData();
+
+    const { data } = await serverApi.patch('/api/users/avatar', formData, {
+      headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+      // Content-Type не ставимо вручну для FormData
     });
 
-    return NextResponse.json(res.data, { status: res.status });
-  } catch (error) {
-    if (isAxiosError(error)) {
-      logErrorResponse(error.response?.data);
+    return NextResponse.json(data);
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
       return NextResponse.json(
-        { error: error.message, response: error.response?.data },
-        { status: error.status }
+        err.response?.data ?? { error: err.message },
+        { status: err.response?.status ?? 500 }
       );
     }
-    logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function PATCH(request: Request) {
-  try {
-    const cookieStore = await cookies();
-    const body = await request.json();
-
-    const res = await lehlekaApi.patch("/users/current", body, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
-
-    return NextResponse.json(res.data, { status: res.status });
-  } catch (error) {
-    if (isAxiosError(error)) {
-      logErrorResponse(error.response?.data);
-      return NextResponse.json(
-        { error: error.message, response: error.response?.data },
-        { status: error.status }
-      );
-    }
-    logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

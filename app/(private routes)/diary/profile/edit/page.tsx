@@ -1,7 +1,7 @@
 'use client';
 
 import RegisterForm from '@/components/auth/Register/RegisterForm';
-import { OnboardingForm } from '@/components/onboarding/OnboardingForm';
+import { OnboardingForm } from '@/components/OnboardingForm/OnboardingForm';
 
 export default function OnboardingPage() {
   return (
