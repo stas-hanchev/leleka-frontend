@@ -8,7 +8,9 @@
   padding: 16px;
   z-index: 998;
 }
-
+.svg {
+  stroke: var(--color-scheme-text);
+}
 .modal {
   position: relative;
   width: 335px;
@@ -35,12 +37,12 @@
   color: #000;
 }
 
-.closeIcon{
+.closeIcon {
   fill: var(--color-white);
-    stroke-width: 1px;
-    stroke: var(--color-scheme-text);
-    width: 14px;
-    height: 14px;
+  stroke-width: 1px;
+  stroke: var(--color-scheme-text);
+  width: 14px;
+  height: 14px;
 }
 
 .title {
@@ -71,10 +73,10 @@
 
 .label {
   font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 150%;
-    color: var(--color-scheme-text);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--color-scheme-text);
 }
 
 .input {
@@ -88,10 +90,10 @@
   outline: none;
   transition: border-color 0.2s;
   font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 150%;
-    color: var(--opacity-neutral-darkest-60);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--opacity-neutral-darkest-60);
 }
 
 .input:focus {
@@ -114,10 +116,10 @@
   border-bottom: 4px solid rgba(0, 0, 0, 0.05);
   transition: transform 0.05s ease, opacity 0.2s;
   font-family: var(--font-family);
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 160%;
-    color: var(--color-scheme-text);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 160%;
+  color: var(--color-scheme-text);
 }
 
 .saveButton:active {
@@ -144,14 +146,14 @@
     font-size: 36px;
   }
 }
-.saveButton{
+.saveButton {
   width: 268px;
   margin: 0 auto;
 }
-.closeButton{
+.closeButton {
   top: 31px;
   right: 41px;
-  
+
   width: 14px;
   height: 14px;
 }
@@ -162,11 +164,11 @@
     max-width: 768px;
     padding: 64px;
   }
-    .title {
-      font-size: 48px;
-    }
-        .closeButton {
-          top: 34px;
-          right: 41px;
-}
+  .title {
+    font-size: 48px;
+  }
+  .closeButton {
+    top: 34px;
+    right: 41px;
+  }
 }

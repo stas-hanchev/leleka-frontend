@@ -17,12 +17,9 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
 
   return (
     <div className={styles.backdrop} onClick={onClose}>
-      <div
-        className={styles.modal}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeButton} onClick={onClose}>
-          <svg width="24" height="24">
+          <svg width="14" height="14" className={styles.svg}>
             <use href="/icon-sprite.svg#icon-close" />
           </svg>
         </button>
