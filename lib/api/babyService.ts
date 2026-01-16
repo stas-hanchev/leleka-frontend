@@ -13,18 +13,18 @@ const api = axios.create({
 
 export const getBabyData = async (
   isAuth: boolean
-): Promise<{ data: BabyDataResponse }> => {
+): Promise<BabyDataResponse> => {
   const endpoint = isAuth
     ? `${api.defaults.baseURL}/weeks/dashboard`
     : `${api.defaults.baseURL}/weeks/public`;
 
   try {
-    const response = await api.get<BabyDataResponse>(endpoint, {
+    const res = await api.get<BabyDataResponse>(endpoint, {
       headers: { Accept: "application/json" },
-      withCredentials: true,
+      withCredentials: isAuth,
     });
 
-    return response;
+    return res.data;
   } catch (error) {
     console.error("Помилка при отриманні даних з бекенду:", error);
     throw error;

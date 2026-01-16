@@ -17,21 +17,20 @@ export default function BabyTodayCard() {
     refetchOnMount: "always",
   });
 
-  if (isError || !data?.data?.babyToday) {
+  if (isError || !data?.babyData) {
     return (
-      <div className={css.card}>
-        <p className={css.error}>Не вдалося завантажити дані</p>
+      <div className={css.babytoday_card}>
+        <p className={css.babytoday_error}>Не вдалося завантажити дані 😔</p>
       </div>
     );
   }
-
-  const baby: BabyToday = data.data.babyToday;
+  const baby: BabyToday = data.babyData;
 
   return (
-    <div className={css.card}>
-      <h3 className={css.title}>Малюк сьогодні</h3>
+    <div className={css.babytoday_card}>
+      <h3 className={css.babytoday_title}>Малюк сьогодні</h3>
 
-      <div className={css.content}>
+      <div className={css.babytoday_content}>
         {baby.image && (
           <div className={css.imageWrapper}>
             <Image
@@ -39,25 +38,27 @@ export default function BabyTodayCard() {
               alt="Ілюстрація малюка"
               width={140}
               height={140}
-              className={css.image}
+              className={css.babytoday_image}
             />
           </div>
         )}
 
-        <div className={css.textWrapper}>
-          <p className={css.info}>
-            Розмір: <span className={css.infotext}>{baby.babySize} см</span>
+        <div className={css.babytoday_textWrapper}>
+          <p className={css.babytoday_info}>
+            Розмір:{" "}
+            <span className={css.babytoday_infotext}>{baby.babySize} см</span>
           </p>
-          <p className={css.info}>
-            Вага: <span className={css.infotext}>{baby.babyWeight} г</span>
+          <p className={css.babytoday_info}>
+            Вага:{" "}
+            <span className={css.babytoday_infotext}>{baby.babyWeight} г</span>
           </p>
-          <p className={css.info}>
+          <p className={css.babytoday_info}>
             Активність:{" "}
-            <span className={css.infotext}>{baby.babyActivity}</span>
+            <span className={css.babytoday_infotext}>{baby.babyActivity}</span>
           </p>
         </div>
       </div>
-      <p className={css.infotext}>{baby.babyDevelopment}</p>
+      <p className={css.babytoday_infotext}>{baby.babyDevelopment}</p>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 import { createTask } from '@/lib/api/taskApi';
 import { ITaskFormValues } from '@/types/taskmodal';
@@ -22,7 +23,6 @@ export const AddTaskForm: React.FC<AddTaskFormProps> = ({
 }) => {
   const queryClient = useQueryClient();
 
-  // Мутація для створення задачі
   const mutation = useMutation({
     mutationFn: (values: { title: string; date: string }) =>
       createTask({
@@ -33,41 +33,45 @@ export const AddTaskForm: React.FC<AddTaskFormProps> = ({
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       onSuccess();
     },
-    onError: (error: Error) => {
+    onError: (error: unknown) => {
+      let serverMessage = 'Не вдалося зберегти завдання.';
+      if (axios.isAxiosError(error)) {
+        serverMessage = error.response?.data?.message || serverMessage;
+      }
       console.error('Помилка при створенні:', error);
-      alert('Не вдалося зберегти завдання.');
+      alert(serverMessage);
     },
   });
 
-  // Форма
   const formik = useFormik<ITaskFormValues>({
     initialValues: initialValues || {
       title: '',
-      date: new Date(), // за замовчуванням сьогодні
+      date: new Date(),
     },
     validationSchema: Yup.object({
       title: Yup.string()
         .min(2, 'Мінімум 2 символи')
-        .required('Обов\'язкове поле'),
-      date: Yup.date().required('Обов\'язкове поле'), // дата обов'язкова
+        .required("Обов'язкове поле"),
+      date: Yup.date().required("Обов'язкове поле"),
     }),
     onSubmit: (values) => {
-      // Перетворюємо date у рядок ISO
+      const formattedDate = values.date
+        ? values.date.toLocaleDateString('en-CA')
+        : '';
+
       mutation.mutate({
         title: values.title,
-        date: values.date!.toISOString(), // Yup гарантує, що date існує
+        date: formattedDate,
       });
     },
   });
 
-  // Обробка зміни дати
   const handleDateChange = (date: Date | null) => {
     formik.setFieldValue('date', date);
   };
 
   return (
     <form onSubmit={formik.handleSubmit} className={styles.form}>
-      {/* Назва завдання */}
       <div className={styles.inputGroup}>
         <label className={styles.label}>Назва завдання</label>
         <input
@@ -83,7 +87,6 @@ export const AddTaskForm: React.FC<AddTaskFormProps> = ({
         )}
       </div>
 
-      {/* Дата */}
       <div className={styles.inputGroup}>
         <label className={styles.label}>Дата</label>
         <DatePicker
@@ -99,7 +102,6 @@ export const AddTaskForm: React.FC<AddTaskFormProps> = ({
         )}
       </div>
 
-      {/* Кнопка збереження */}
       <button
         type="submit"
         className={styles.saveButton}

@@ -13,20 +13,20 @@ export default function MomTipCard() {
     queryFn: () => getBabyData(isAuthenticated),
   });
 
-  if (isError || !data?.data?.momHint) {
+  if (isError || !data?.babyData?.momDailyTips) {
     return (
-      <div className={css.card}>
-        <p className={css.error}>Не вдалося завантажити пораду 😔</p>
+      <div className={css.momtip_card}>
+        <p className={css.momtip_error}>Не вдалося завантажити пораду 😔</p>
       </div>
     );
   }
 
-  const momHint = data.data.momHint;
+  const momHint = data.babyData.momDailyTips;
 
   return (
-    <div className={css.card}>
-      <h3 className={css.title}>Порада для мами</h3>
-      <p className={css.text}>{momHint}</p>
+    <div className={css.momtip_card}>
+      <h3 className={css.momtip_title}>Порада для мами</h3>
+      <p className={css.momtip_text}>{momHint}</p>
     </div>
   );
 }

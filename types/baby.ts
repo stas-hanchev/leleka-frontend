@@ -4,11 +4,12 @@ export interface BabyToday {
   babyActivity: string;
   babyDevelopment: string;
   image: string;
+  momDailyTips: string[];
+  interestingFact: string;
 }
 
 export interface BabyDataResponse {
-  curWeekToPregnant: number;
-  daysBeforePregnant: number;
-  babyToday: BabyToday;
-  momHint: string;
+  weekNumber: number;
+  daysRemaining: number;
+  babyData?: BabyToday;
 }

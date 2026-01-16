@@ -1,7 +1,7 @@
-.section {
+.task_section {
   background-color: var(--color-scheme-foreground);
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   box-sizing: border-box;
   border: 0px solid var(--color-scheme-border);
   border-radius: 32px;
@@ -11,23 +11,24 @@
   margin-bottom: 32px;
 }
 
-.header {
+.task_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
 }
 
-.header h2 {
+.task_header h2 {
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 20px;
   line-height: 1.4;
   letter-spacing: 0.01em;
   color: var(--color-scheme-text);
+  margin: 0;
 }
 
-.header button {
+.task_header button {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
@@ -48,11 +49,13 @@
 }
 
 .taskList {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   margin: 0;
   padding: 0;
   list-style: none;
+  gap: 16px;
 }
 
 .taskItem {
@@ -61,7 +64,6 @@
   flex-direction: column;
   gap: 2px;
   transition: all 0.2s ease;
-  margin-bottom: 16px;
   font-size: 14px;
 }
 
@@ -148,7 +150,7 @@
   opacity: 1;
 }
 
-.emptyState {
+.task_emptyState {
   font-family: var(--font-family);
   display: flex;
   flex-direction: column;
@@ -158,24 +160,25 @@
   padding: 0;
 }
 
-.emptyTitle {
+.task_emptyTitle {
   font-family: var(--font-family);
   font-weight: 700;
   font-size: 14px;
   line-height: 1.6;
   color: var(--color-neutral-darkest);
+  margin: 0;
 }
 
-.emptySubtitle {
+.task_emptySubtitle {
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
   color: var(--color-neutral-darkest);
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
 }
 
-.createButton {
+.task_createButton {
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 14px;
@@ -187,7 +190,7 @@
   cursor: pointer;
   border-bottom: 4px solid var(--color-scheme-accent);
   background: var(--color-scheme-foreground-alt);
-  width: 173px;
+  /* width: 173px; */
   height: 42px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -206,18 +209,38 @@
 }
 
 @media screen and (min-width: 768px) {
+  .task_section {
+    max-width: 704px;
   .section {
     max-width: 728px;
     height: auto;
   }
+  .taskDate {
+    font-size: 10px;
+  }
+  .taskName {
+    font-size: 12px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
-  .section {
+  .task_section {
     max-width: none;
     width: 390px;
     height: 498px;
     margin-bottom: 0;
+  }
+  .task_section::-webkit-scrollbar {
+    height: 2px;
+    width: 4px;
+  }
+
+  .task_section::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+  }
+  .task_section::-webkit-scrollbar-track {
+    margin: 32px 0;
   }
   .taskList {
     overflow-y: auto;
@@ -235,13 +258,13 @@
     font-size: 14px;
   }
 
-  .emptyTitle,
-  .emptySubtitle {
+  .task_emptyTitle,
+  .task_emptySubtitle {
     font-size: 16px;
   }
 
-  .createButton {
-    width: 191px;
+  .task_createButton {
+    min-width: 191px;
     height: 46px;
     font-size: 16px;
   }

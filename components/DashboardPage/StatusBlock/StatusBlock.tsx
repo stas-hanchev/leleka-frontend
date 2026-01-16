@@ -11,30 +11,30 @@ export default function StatusBlock() {
     queryFn: () => getBabyData(isAuthenticated),
   });
 
-  if (isError || !data?.data) {
+  if (isError || !data) {
     return (
-      <div className={css.block}>
-        <div className={css.wrapper}>
-          <p className={css.error}>Не вдалося завантажити статус</p>
+      <div className={css.status_block}>
+        <div className={css.status_wrapper}>
+          <p className={css.status_error}>Не вдалося завантажити статус</p>
         </div>
-        <div className={css.wrapper}>
-          <p className={css.error}>Не вдалося завантажити статус</p>
+        <div className={css.status_wrapper}>
+          <p className={css.status_error}>Не вдалося завантажити статус</p>
         </div>
       </div>
     );
   }
 
-  const { curWeekToPregnant, daysBeforePregnant } = data.data;
+  const { weekNumber, daysRemaining } = data;
 
   return (
-    <div className={css.block}>
-      <div className={css.wrapper}>
-        <span className={css.label}>Тиждень</span>
-        <span className={css.value}>{curWeekToPregnant}</span>
+    <div className={css.status_block}>
+      <div className={css.status_wrapper}>
+        <span className={css.status_label}>Тиждень</span>
+        <span className={css.status_value}>{weekNumber}</span>
       </div>
-      <div className={css.wrapper}>
-        <span className={css.label}>Днів до зустрічі</span>
-        <span className={css.value}>~{daysBeforePregnant}</span>
+      <div className={css.status_wrapper}>
+        <span className={css.status_label}>Днів до зустрічі</span>
+        <span className={css.status_value}>~{daysRemaining}</span>
       </div>
     </div>
   );

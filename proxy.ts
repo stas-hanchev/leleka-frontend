@@ -12,11 +12,11 @@ const privateRoutes = [
 ];
 
 const publicRoutes = [
-  '/auth/register',
-  '/auth/login',
-  '/auth/refresh',
-  '/auth/request-reset-email',
-  '/auth/reset-password',
+  "/auth/register",
+  "/auth/login",
+  "/auth/refresh",
+  "/auth/request-reset-email",
+  "/auth/reset-password",
 ];
 
 export async function proxy(request: NextRequest) {
