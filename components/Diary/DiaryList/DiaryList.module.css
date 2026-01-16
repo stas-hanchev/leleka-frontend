@@ -1,59 +1,57 @@
-/* components/Diary/DiaryList/DiaryList.module.css */
-
-/* Загальний контейнер списку */
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* Заголовок та кнопка нового запису */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid #eee;
+    min-height: 400px;
 }
 
 .title {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 12px;
 }
 
-.addButton {
+.date {
+    color: #999;
+    margin-bottom: 24px;
+}
+
+.emotions {
+    margin-bottom: 30px;
     display: flex;
-    align-items: center;
-    gap: 6px;
-    background-color: #FFF4F6;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 8px;
+    gap: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+.edit,
+.delete {
+    padding: 8px 16px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-.addButton:hover {
-    background-color: var(--color-scheme-foreground-alt);;
+.edit {
+    background: #e3f2fd;
+    color: #1976d2;
 }
 
-/* Список карток */
-.list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    overflow-y: auto;
-    /* для десктопу з фіксованою висотою */
+.delete {
+    background: #ffebee;
+    color: #d32f2f;
 }
 
-/* Плейсхолдер, коли записів немає */
-.empty {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    color: #777;
+.placeholder {
     text-align: center;
-    font-style: italic;
+    color: #888;
+    padding: 50px;
+    background: #f9f9f9;
+    border-radius: 12px;
 }
 
 /* Адаптивність */

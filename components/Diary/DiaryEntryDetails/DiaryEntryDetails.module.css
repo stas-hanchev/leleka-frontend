@@ -1,46 +1,70 @@
 .wrapper {
-    padding: 16px;
-    background-color: #fff;
-    border-radius: 12px;
-    height: 100%;
-    overflow-y: auto;
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid #eee;
+    min-height: 400px;
 }
 
 .title {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 24px;
+    margin-bottom: 12px;
 }
 
 .date {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 16px;
+    color: #999;
+    margin-bottom: 24px;
 }
 
-.text {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 24px;
+.emotions {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
 }
 
 .actions {
     display: flex;
     gap: 12px;
+    margin-top: 40px;
+}
+
+.edit,
+.delete {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
 }
 
 .edit {
-    background-color: #FFF4F6;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: none;
+    background: #e3f2fd;
+    color: #1976d2;
 }
 
-/* .delete {
-    background-color: #ff4d4f;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: none;
-} */
+.delete {
+    background: #ffebee;
+    color: #d32f2f;
+}
+
+.placeholder {
+    text-align: center;
+    color: #888;
+    padding: 50px;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+@media (min-width: 1024px) {
+    .wrapper {
+        min-height: auto;
+        height: 100%;
+        border-left: 1px solid #e0e0e0;
+        padding: 40px;
+        position: sticky;
+        top: 0;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+}

@@ -1,41 +1,73 @@
-/* components/diary/GreetingBlock.module.css */
+
+
 .wrapper {
-    background-color: #fef9f6;
     padding: 16px;
-    border-radius: 12px;
-    margin-bottom: 24px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 8px;
+    background-color: #ffffff;
+
 }
 
 .greeting {
-    font-size: 1.5rem;
-    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
 }
 
 .info {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 12px;
+    font-size: 14px;
+    color: #666666;
+    margin: 0;
 }
 
 .addButton {
-    background-color: #FFF4F6;
-    color: white;
-    border: 1px;
-    padding: 8px 16px;
+    margin-top: 8px;
+    padding: 12px 20px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
     border-radius: 8px;
-    cursor: pointer;
     font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
 }
 
 .addButton:hover {
-    background-color: var(--color-scheme-foreground-alt);;
+    background-color: #333333;
 }
 
 .message {
-    font-size: 1rem;
+    padding: 20px;
+    text-align: center;
     color: #888;
-    background-color: var(--color-scheme-foreground-alt);;
+}
+
+
+
+@media (min-width: 1440px) {
+    .wrapper {
+        padding: 24px 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .greeting {
+        font-size: 32px;
+    }
+
+    .info {
+        font-size: 16px;
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+
+    .addButton {
+        width: auto;
+        margin-top: 0;
+    }
 }

@@ -16,7 +16,7 @@ interface Props {
 
 export default function DiaryEntryCard({ entry }: Props) {
   const router = useRouter();
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery("(min-width: 1440px)");
   const setSelectedEntryId = useDiaryStore((s) => s.setSelectedEntryId);
 
   const handleClick = () => {
