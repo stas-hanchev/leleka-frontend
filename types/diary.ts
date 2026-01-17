@@ -4,7 +4,7 @@ export interface DiaryNote {
   _id: string;
   title: string;
   date: string;
-  categories: Emotion[];
+  categories: string[];
   text: string;
 }
 
