@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import styles from "./DiaryEntryDetails.module.css";
+import { useMemo, useState } from 'react';
+import Link from 'next/link';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import styles from './DiaryEntryDetails.module.css';
 
-import { deleteDiaryEntry, getDiaryEntry } from "@/lib/api/diaryApi";
-import type { DiaryEntry } from "@/types/diary";
-import { emotionToEmoji } from "../diaryEmojis";
-import AddDiaryEntryModal from "../AddDiaryEntryModal/AddDiaryEntryModal";
+import { deleteDiaryEntry, getDiaryEntry } from '@/lib/api/diaryApi';
+import type { DiaryEntry } from '@/types/diary';
+import { emotionToEmoji } from '../diaryEmojis';
 
 type Props = {
   entryId: string | null;
@@ -18,8 +17,8 @@ type Props = {
 
 function formatDate(iso: string) {
   const d = new Date(iso);
-  const day = String(d.getDate()).padStart(2, "0");
-  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
   const year = d.getFullYear();
   return `${day}.${month}.${year}`;
 }
@@ -33,7 +32,7 @@ export default function DiaryEntryDetails({
   const [editOpen, setEditOpen] = useState(false);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["diaryEntry", entryId],
+    queryKey: ['diaryEntry', entryId],
     queryFn: () => getDiaryEntry(String(entryId)),
     enabled: Boolean(entryId),
   });
@@ -41,7 +40,7 @@ export default function DiaryEntryDetails({
   const delMutation = useMutation({
     mutationFn: (id: string) => deleteDiaryEntry(id),
     onSuccess: async () => {
-      await qc.invalidateQueries({ queryKey: ["diaryEntries"] });
+      await qc.invalidateQueries({ queryKey: ['diaryEntries'] });
     },
   });
 
@@ -53,7 +52,7 @@ export default function DiaryEntryDetails({
     return (
       <section className={styles.wrap}>
         <div className={styles.placeholder}>
-          {emptyText ?? "Наразі записи у щоденнику відстні"}
+          {emptyText ?? 'Наразі записи у щоденнику відстні'}
         </div>
       </section>
     );
@@ -105,7 +104,7 @@ export default function DiaryEntryDetails({
             type="button"
             className={`${styles.iconBtn} ${styles.danger}`}
             onClick={() => {
-              const ok = window.confirm("Видалити запис?");
+              const ok = window.confirm('Видалити запис?');
               if (ok) delMutation.mutate(entry.id);
             }}
             disabled={delMutation.isPending}
@@ -128,13 +127,6 @@ export default function DiaryEntryDetails({
           </div>
         )}
       </div>
-
-      <AddDiaryEntryModal
-        key={editOpen ? `edit-${entry.id}` : "closed"}
-        open={editOpen}
-        onClose={() => setEditOpen(false)}
-        initialEntry={entry}
-      />
     </section>
   );
 }
