@@ -12,8 +12,8 @@ type Props = {
 
 export default function DiaryEntryPage({ params }: Props) {
   const resolvedParams = use(params);
-  console.log('Весь объект params:', resolvedParams);
   const entryId = resolvedParams.entryId;
+
   const {
     data: entries = [],
     isLoading,

@@ -1,11 +1,12 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import styles from './DiaryList.module.css';
 import type { DiaryNote } from '@/types/diary';
 import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
 import AddDiaryEntryModal from '@/components/diary.modal/AddDiaryEntryModal';
 import { useSelectedNoteStore } from '@/lib/store/selectedNoteStore';
+import { useNoteModalStore } from '@/lib/store/modalNoteStore';
 
 type Props = {
   entries: DiaryNote[];
@@ -24,10 +25,8 @@ export default function DiaryList({
   onSelect,
   mode,
 }: Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const closeNoteModal = () => setIsModalOpen(false);
-  const openNoteModal = () => setIsModalOpen(true);
-  const selectedNote = useSelectedNoteStore((s) => s.selectedNote);
+  const { isOpen, openNoteModal, closeNoteModal } = useNoteModalStore();
+  const { selectedNote, setSelectedNote } = useSelectedNoteStore();
 
   const content = useMemo(() => {
     if (isLoading) return <div className={styles.info}>Завантаження...</div>;
@@ -55,11 +54,13 @@ export default function DiaryList({
     <section className={styles.wrap}>
       <div className={styles.header}>
         <h3 className={styles.h3}>Ваші записи</h3>
-
         <button
           type="button"
           className={styles.addBtn}
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setSelectedNote(null);
+            openNoteModal();
+          }}
         >
           <span className={styles.addText}>Новий запис</span>
           <span className={styles.addIcon} aria-hidden>
@@ -70,15 +71,14 @@ export default function DiaryList({
 
       <div className={styles.scrollArea}>{content}</div>
 
-      {isModalOpen && (
+      {isOpen && (
         <AddDiaryEntryModal
-          isOpen={isModalOpen}
+          isOpen={isOpen}
           onClose={() => {
             closeNoteModal();
-
-            useSelectedNoteStore.getState().setSelectedNote(null);
+            setSelectedNote(null);
           }}
-          note={selectedNote ?? undefined}
+          note={selectedNote}
         />
       )}
     </section>

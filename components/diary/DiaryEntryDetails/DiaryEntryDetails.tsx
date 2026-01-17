@@ -1,15 +1,16 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import styles from './DiaryEntryDetails.module.css';
-
+import { useRouter } from 'next/navigation';
 import { deleteDiaryNote } from '@/lib/api/diaryApi';
 import type { DiaryNote } from '@/types/diary';
 import { emotionToEmoji } from '../diaryEmojis';
 import AddDiaryEntryModal from '@/components/diary.modal/AddDiaryEntryModal';
 import { useSelectedNoteStore } from '@/lib/store/selectedNoteStore';
+import { useNoteModalStore } from '@/lib/store/modalNoteStore';
 
 type Props = {
   _id: string | null;
@@ -33,11 +34,10 @@ export default function DiaryEntryDetails({
   entry,
 }: Props) {
   const qc = useQueryClient();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const closeNoteModal = () => setIsModalOpen(false);
-  const openNoteModal = (p0: boolean) => setIsModalOpen(true);
-  const selectedNote = useSelectedNoteStore((s) => s.selectedNote);
 
+  const { isOpen, openNoteModal, closeNoteModal } = useNoteModalStore();
+  const { selectedNote, setSelectedNote } = useSelectedNoteStore();
+  const router = useRouter();
   const delMutation = useMutation({
     mutationFn: (id: string) => deleteDiaryNote(id),
     onSuccess: async () => {
@@ -47,7 +47,7 @@ export default function DiaryEntryDetails({
 
   const emotions = useMemo(() => entry?.categories ?? [], [entry?.categories]);
 
-  if (!_id) {
+  if (!_id || !entry) {
     return (
       <section className={styles.wrap}>
         <div className={styles.placeholder}>
@@ -76,30 +76,31 @@ export default function DiaryEntryDetails({
             type="button"
             className={styles.iconBtn}
             onClick={() => {
-              openNoteModal(true);
-              useSelectedNoteStore.getState().setSelectedNote(entry);
+              setSelectedNote(entry);
+              openNoteModal();
             }}
           >
             Редагувати
           </button>
 
-          {isModalOpen && (
+          {isOpen && (
             <AddDiaryEntryModal
-              isOpen={isModalOpen}
+              isOpen={isOpen}
               onClose={() => {
                 closeNoteModal();
-
-                useSelectedNoteStore.getState().setSelectedNote(null);
+                setSelectedNote(null);
               }}
-              note={selectedNote ?? undefined}
+              note={selectedNote}
             />
           )}
+
           <button
             type="button"
             className={`${styles.iconBtn} ${styles.danger}`}
             onClick={() => {
               const ok = window.confirm('Видалити запис?');
               if (ok) delMutation.mutate(entry._id);
+              router.push('/diary');
             }}
             disabled={delMutation.isPending}
           >
