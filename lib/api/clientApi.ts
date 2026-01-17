@@ -21,12 +21,12 @@ export const getMe = async (): Promise<User | null> => {
 };
 
 export async function getCurrentUser(): Promise<User> {
-  const { data } = await NextServer.get<User>("/users/current");
+  const { data } = await NextServer.get<User>("api/users/current");
   return data;
 }
 
 export async function updateUser(userData: UpdateUserPayload): Promise<User> {
-  const { data } = await NextServer.patch<User>("/users/current", userData);
+  const { data } = await NextServer.patch<User>("api/users/current", userData);
   return data;
 }
 
@@ -35,10 +35,9 @@ export async function uploadAvatar(file: File): Promise<{ avatarUrl: string }> {
   formData.append("avatar", file);
 
   const { data } = await NextServer.patch<{ avatarUrl: string }>(
-    "/users/avatar",
-    formData
+    "api/users/avatar",
+    formData,
   );
 
   return data;
 }
-
