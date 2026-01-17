@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import styles from './DiaryEntryCard.module.css';
 import type { DiaryNote } from '@/types/diary';
-import { emotionToEmoji } from '../diaryEmojis';
 
 type Props = {
   entry: DiaryNote;
@@ -38,7 +37,7 @@ export default function DiaryNoteCard({
       <div className={styles.emotions} aria-label="Емоції">
         {emotions.map((e) => (
           <span key={e} className={styles.emoji} title={e}>
-            {emotionToEmoji[e]}
+            {e}
           </span>
         ))}
       </div>

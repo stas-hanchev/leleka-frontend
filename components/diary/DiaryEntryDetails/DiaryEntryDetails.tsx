@@ -7,7 +7,6 @@ import styles from './DiaryEntryDetails.module.css';
 import { useRouter } from 'next/navigation';
 import { deleteDiaryNote } from '@/lib/api/diaryApi';
 import type { DiaryNote } from '@/types/diary';
-import { emotionToEmoji } from '../diaryEmojis';
 import AddDiaryEntryModal from '@/components/diary.modal/AddDiaryEntryModal';
 import { useSelectedNoteStore } from '@/lib/store/selectedNoteStore';
 import { useNoteModalStore } from '@/lib/store/modalNoteStore';
@@ -116,7 +115,7 @@ export default function DiaryEntryDetails({
           <div className={styles.emotions}>
             {emotions.map((e) => (
               <span key={e} className={styles.emoji} title={e}>
-                {emotionToEmoji[e]}
+                {e}
               </span>
             ))}
           </div>
