@@ -5,17 +5,14 @@ import Select, {
   StylesConfig,
 } from 'react-select';
 
-interface CustomSelectProps<
-  Option,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
-> extends Props<Option, IsMulti, Group> {
+interface CustomSelectProps<Option, IsMulti extends boolean = false>
+  extends Props<Option, IsMulti, GroupBase<Option>> {
   hasError?: boolean;
 }
 
 const selectStyles = <Option, IsMulti extends boolean>(
   hasError?: boolean
-): StylesConfig<Option, IsMulti> => ({
+): StylesConfig<Option, IsMulti, GroupBase<Option>> => ({
   container: (base) => ({
     ...base,
     zIndex: 8,
@@ -108,11 +105,9 @@ function Checkbox({ isChecked }: { isChecked: boolean }) {
 
 export default function CustomSelect<
   Option,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
->({ hasError, ...props }: CustomSelectProps<Option, IsMulti, Group>) {
+  IsMulti extends boolean = false>({ hasError, ...props }: CustomSelectProps<Option, IsMulti>) {
   return (
-    <Select<Option, IsMulti, Group>
+    <Select<Option, IsMulti, GroupBase<Option>>
       {...props}
       closeMenuOnSelect={!props.isMulti}
       hideSelectedOptions={false}
@@ -146,7 +141,7 @@ export default function CustomSelect<
         ),
 
         Option: (optionProps) => (
-          <components.Option<Option, IsMulti, Group> {...optionProps}>
+          <components.Option<Option, IsMulti, GroupBase<Option>> {...optionProps}>
             {props.isMulti && <Checkbox isChecked={optionProps.isSelected} />}
             <span>{optionProps.label}</span>
           </components.Option>
