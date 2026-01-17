@@ -1,0 +1,59 @@
+.title {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #000;
+  margin: 0 auto 20px;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+@media only screen and (min-width: 1440px) {
+  .title {
+    font-size: 48px;
+  }
+}
+.closeButton {
+  position: absolute;
+  top: 36px;
+  right: 20px;
+  border: none;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  font-size: 30px;
+  line-height: 1;
+  color: #333;
+  cursor: pointer;
+  background: none;
+  top: 10px;
+  right: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+  .closeButton {
+    right: 15px;
+    top: 20px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

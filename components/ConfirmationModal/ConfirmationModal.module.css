@@ -75,10 +75,32 @@
   background: #ffdae0;
   border-bottom: 4px solid var(--color-scheme-accent);
 }
+.cancelButton:hover,
+.cancelButton:focus{
+  background-color: #FFF4F6;
+  border-bottom:  4px solid var(--Opacity-Neutral-Darkest-15, #00000026)
+;
+
+}
+.cancelButton:active{
+  background-color: #FFCBD3;
+
+}
 
 .confirmButton {
   background: #0000000d;
   border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+.confirmButton:hover,
+.confirmButton:focus{
+  background-color: #FFFFFF;
+  border-bottom: 4px solid var(--Color-Scheme-Border, #00000026);
+
+}
+.confirmButton:active{
+  background-color: #B2B2B2;
+
 }
 /* Tablet */
 
