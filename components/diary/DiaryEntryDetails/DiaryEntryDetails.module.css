@@ -1,0 +1,104 @@
+.wrap {
+  background: #fdecee;
+  border-radius: 24px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.headerLeft {
+  min-width: 0;
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.date {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.actions {
+  display: inline-flex;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.iconBtn {
+  border: 0;
+  background: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  border-radius: 14px;
+  padding: 8px 10px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.danger {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.body {
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+/* Desktop: внутрішній скрол у фіксованому блоці */
+@media (min-width: 1440px) {
+  .body {
+    height: calc(640px - 16px - 16px - 58px); /* загальна - паддінги - header */
+    overflow-y: auto;
+  }
+}
+
+.text {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.emotions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.emoji {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder {
+  padding: 28px 10px;
+  font-size: 14px;
+  opacity: 0.75;
+}
