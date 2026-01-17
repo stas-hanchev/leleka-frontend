@@ -9,7 +9,7 @@ export function getPregnancyWeekFromDueDate(dueDateISO: string, now = new Date()
   if (Number.isNaN(due.getTime())) return 1;
 
   const weeksUntilDue = Math.ceil((due.getTime() - now.getTime()) / MS_PER_WEEK);
-  const week = 40 - weeksUntilDue + 1;
+  const week = 40 - weeksUntilDue /*+ 1*/;
 
   return clamp(week, 1, 40);
 }
