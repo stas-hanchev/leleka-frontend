@@ -13,12 +13,12 @@ api.interceptors.request.use((config) => {
 });
 
 export const createNote = async (values: any) => {
-  const dataForBackend = {
+  const data = {
     title: values.title,
     categories: values.tags,
     text: values.content,
   };
-  const response = await api.post("/diary", dataForBackend);
+  const response = await api.post("/diary", data);
   return response.data;
 };
 

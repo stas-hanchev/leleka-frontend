@@ -1,29 +1,41 @@
+/* МОБИЛЬНЫЕ (по умолчанию) */
 .backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 20px;
+  padding: 20px; /* Чтобы модалка не липла к краям экрана */
 }
 
 .modal {
-  background: #ffffff;
-  border-radius: 24px;
-  padding: 32px 24px;
-  width: 100%;
-  max-width: 335px;
   position: relative;
+  background-color: #ffffff;
+  border-radius: 24px; /* Твой радиус из Figma */
+  padding: 24px;
+  width: 100%;
+  max-width: 335px; /* Ширина для мобилки */
+  max-height: 90vh; /* Чтобы не вылезала за пределы экрана по высоте */
+  overflow-y: auto; /* Если контента много, появится скролл внутри */
 }
 
+/* ПЛАНШЕТ (от 768px) */
 @media screen and (min-width: 768px) {
   .modal {
-    max-width: 600px;
+    max-width: 600px; /* Окно становится шире */
     padding: 40px;
+    border-radius: 30px;
+  }
+}
+
+/* ДЕСКТОП (от 1280px) */
+@media screen and (min-width: 1280px) {
+  .modal {
+    max-width: 700px; /* Оптимальная ширина для десктопа */
   }
 }

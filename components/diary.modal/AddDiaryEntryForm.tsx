@@ -63,7 +63,7 @@ export default function AddDiaryEntryForm({ note, onClose }: Props) {
         {/* Title */}
         <div className={css.formGroup}>
           <label htmlFor={`${fieldId}-title`}>Заголовок</label>
-          <Field id={`${fieldId}-title`} name="title" />
+          <Field id={`${fieldId}-title`} name="title" className={css.input} />
           <ErrorMessage name="title" component="p" className={css.error} />
         </div>
 
@@ -91,11 +91,16 @@ export default function AddDiaryEntryForm({ note, onClose }: Props) {
             id={`${fieldId}-content`}
             name="content"
             rows={6}
+            className={css.textarea}
           />
         </div>
 
         {/* Actions */}
-        <button type="submit" disabled={mutation.isPending}>
+        <button
+          type="submit"
+          disabled={mutation.isPending}
+          className={css.submitBtn}
+        >
           Зберегти
         </button>
       </Form>
