@@ -28,7 +28,6 @@ export async function PATCH(req: Request) {
 export async function GET(req: Request) {
   try {
     const cookieStore = await cookies();
-    console.log(`!!! GET CURRENT`)
     const { data } = await lehlekaApi.get('/users/current',
       {
         headers: {
