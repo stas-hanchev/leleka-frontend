@@ -25,7 +25,7 @@ export default function DiaryNoteCard({
   mode,
   onClick,
 }: Props) {
-  const emotions = entry.categories.slice(0, 3);
+  const emotions = entry.categories;
 
   const inner = (
     <article className={`${styles.card} ${isActive ? styles.active : ''}`}>
@@ -35,8 +35,8 @@ export default function DiaryNoteCard({
       </div>
 
       <div className={styles.emotions} aria-label="Емоції">
-        {emotions.map((e) => (
-          <span key={e} className={styles.emoji} title={e}>
+        {emotions.map((e, index) => (
+          <span key={index} className={styles.tag}>
             {e}
           </span>
         ))}

@@ -1,5 +1,5 @@
 .wrap {
-  background: #fdecee;
+  background: var(--color-scheme-foreground);
   border-radius: 24px;
   padding: 16px;
   overflow: hidden;
@@ -15,8 +15,12 @@
 
 .h3 {
   margin: 0;
-  font-size: 16px;
+  font-family: var(--second-family);
   font-weight: 700;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: 0.01em;
+  color: var(--color-scheme-text);
 }
 
 .addBtn {
@@ -35,29 +39,36 @@
 }
 
 .addText {
+  font-family: var(--font-family);
+  font-weight: 500;
   font-size: 14px;
-  font-weight: 600;
+  line-height: 22px;
+  color: var(--color-scheme-text);
 }
 
 .addIcon {
-  width: 24px;
-  height: 24px;
+  width: 21px;
+  height: 21px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  background: #fff;
-  font-weight: 900;
 }
 
 .scrollArea {
   display: block;
 }
 
-/* Desktop: внутрішній скрол у фіксованому блоці */
+@media (min-width: 768px) {
+  .wrap {
+    padding: 24px 16px;
+  }
+}
 @media (min-width: 1440px) {
+  .wrap {
+    width: 387px;
+  }
   .scrollArea {
-    height: calc(640px - 16px - 16px - 44px); /* загальна - паддінги - хедер */
+    height: calc(640px - 16px - 16px - 44px);
     overflow-y: auto;
     padding-right: 6px;
   }
@@ -69,7 +80,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .item {

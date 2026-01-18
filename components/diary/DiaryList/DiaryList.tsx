@@ -64,7 +64,9 @@ export default function DiaryList({
         >
           <span className={styles.addText}>Новий запис</span>
           <span className={styles.addIcon} aria-hidden>
-            +
+            <svg width="21" height="21">
+              <use href="/icon-sprite.svg#icon-add-circle"></use>
+            </svg>
           </span>
         </button>
       </div>

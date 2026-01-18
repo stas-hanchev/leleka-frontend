@@ -1,3 +1,5 @@
+import { Emotion } from '@/constants/emotions';
+
 export interface DiaryNote {
   _id: string;
   title: string;

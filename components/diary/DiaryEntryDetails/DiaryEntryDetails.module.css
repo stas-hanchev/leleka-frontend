@@ -1,5 +1,5 @@
 .wrap {
-  background: #fdecee;
+  background: var(--color-scheme-foreground);
   border-radius: 24px;
   padding: 16px;
   overflow: hidden;
@@ -18,17 +18,26 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
 }
 
 .headerLeft {
   min-width: 0;
 }
 
+.deleteSection {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .title {
   margin: 0 0 6px;
-  font-size: 16px;
-  font-weight: 800;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: 0.01em;
+  color: var(--color-scheme-text);
 }
 
 .date {
@@ -37,14 +46,15 @@
 }
 
 .actions {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   gap: 8px;
   flex: 0 0 auto;
 }
 
 .iconBtn {
   border: 0;
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--color-scheme-foreground);
   cursor: pointer;
   border-radius: 14px;
   padding: 8px 10px;
@@ -53,31 +63,56 @@
 }
 
 .iconBtn:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-scheme-foreground);
 }
 
 .danger {
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--color-scheme-foreground);
 }
 
 .body {
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--color-scheme-foreground);
   border-radius: 18px;
-  padding: 14px;
+}
+.emotions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  margin: 0;
+}
+.tag {
+  background: var(--opacity-neutral-darkest-5);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--color-scheme-text);
+  border: 1px solid #f0f0f0;
+  white-space: nowrap;
 }
 
-/* Desktop: внутрішній скрол у фіксованому блоці */
+@media (min-width: 768px) {
+  .wrap {
+    height: 765px;
+  }
+}
 @media (min-width: 1440px) {
+  .wrap {
+    padding: 24px 24px;
+  }
+
   .body {
-    height: calc(640px - 16px - 16px - 58px); /* загальна - паддінги - header */
+    height: calc(640px - 16px - 16px - 58px);
     overflow-y: auto;
   }
 }
 
 .text {
-  margin: 0 0 12px;
-  font-size: 14px;
-  line-height: 1.5;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-scheme-text);
   white-space: pre-wrap;
 }
 

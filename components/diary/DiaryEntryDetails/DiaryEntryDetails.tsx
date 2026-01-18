@@ -58,53 +58,51 @@ export default function DiaryEntryDetails({
 
   return (
     <section className={styles.wrap}>
-      {showMobileBack && (
-        <Link href="/diary" className={styles.back}>
-          ← Назад
-        </Link>
-      )}
-
       <div className={styles.header}>
         <div className={styles.headerLeft}>
-          <h3 className={styles.title}>{entry.title}</h3>
-          <time className={styles.date}>{formatDate(entry.date)}</time>
-        </div>
-
-        <div className={styles.actions}>
-          <button
-            type="button"
-            className={styles.iconBtn}
-            onClick={() => {
-              setSelectedNote(entry);
-              openNoteModal();
-            }}
-          >
-            Редагувати
-          </button>
-
-          {isOpen && (
-            <AddDiaryEntryModal
-              isOpen={isOpen}
-              onClose={() => {
-                closeNoteModal();
-                setSelectedNote(null);
+          <div className={styles.actions}>
+            <h3 className={styles.title}>{entry.title}</h3>
+            <button
+              type="button"
+              className={styles.iconBtn}
+              onClick={() => {
+                setSelectedNote(entry);
+                openNoteModal();
               }}
-              note={selectedNote}
-            />
-          )}
+            >
+              <svg width="24" height="24">
+                <use href="/icon-sprite.svg#icon-edit"></use>
+              </svg>
+            </button>
 
-          <button
-            type="button"
-            className={`${styles.iconBtn} ${styles.danger}`}
-            onClick={() => {
-              const ok = window.confirm('Видалити запис?');
-              if (ok) delMutation.mutate(entry._id);
-              router.push('/diary');
-            }}
-            disabled={delMutation.isPending}
-          >
-            Видалити
-          </button>
+            {isOpen && (
+              <AddDiaryEntryModal
+                isOpen={isOpen}
+                onClose={() => {
+                  closeNoteModal();
+                  setSelectedNote(null);
+                }}
+                note={selectedNote}
+              />
+            )}
+          </div>
+          <div className={styles.deleteSection}>
+            <time className={styles.date}>{formatDate(entry.date)}</time>
+            <button
+              type="button"
+              className={`${styles.iconBtn} ${styles.danger}`}
+              onClick={() => {
+                const ok = window.confirm('Видалити запис?');
+                if (ok) delMutation.mutate(entry._id);
+                router.push('/diary');
+              }}
+              disabled={delMutation.isPending}
+            >
+              <svg width="17" height="19">
+                <use href="/icon-sprite.svg#icon-delete"></use>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -112,9 +110,9 @@ export default function DiaryEntryDetails({
         <p className={styles.text}>{entry.text}</p>
 
         {emotions.length > 0 && (
-          <div className={styles.emotions}>
-            {emotions.map((e) => (
-              <span key={e} className={styles.emoji} title={e}>
+          <div className={styles.emotions} aria-label="Емоції">
+            {emotions.map((e, index) => (
+              <span key={index} className={styles.tag}>
                 {e}
               </span>
             ))}

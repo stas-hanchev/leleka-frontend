@@ -14,10 +14,13 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.65);
-  border-radius: 18px;
   padding: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--color-scheme-foreground-alt);
+  border-radius: 16px;
+  padding: 16px;
+  width: 303px;
+  height: 91px;
+  background: var(--color-scheme-foreground-alt);
 }
 
 .active {
@@ -34,8 +37,11 @@
 
 .title {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-scheme-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -49,16 +55,42 @@
 
 .emotions {
   display: flex;
-  gap: 6px;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tag {
+  background: var(--color-scheme-foreground);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--color-scheme-text);
+  border: 1px solid var(--opacity-transparent);
+
+  white-space: nowrap;
 }
 
 .emoji {
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  background: #fff;
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 100px;
+  padding: 2px 12px;
+  width: 94px;
+  height: 25px;
+  background: var(--color-scheme-foreground);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 690px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    width: 345px;
+  }
 }
