@@ -1,10 +1,12 @@
-import axios from "axios";
-import { NextServer } from "./api";
-import type { User, UpdateUserPayload } from "@/types/user";
+import axios from 'axios';
+import { NextServer } from './api';
+import type { User, UpdateUserPayload } from '@/types/user';
+
+axios.defaults.withCredentials = true;
 
 export const checkSession = async (): Promise<boolean> => {
   try {
-    await axios.get("/api/auth/session");
+    await axios.get('/api/auth/session');
     return true;
   } catch {
     return false;
@@ -13,7 +15,7 @@ export const checkSession = async (): Promise<boolean> => {
 
 export const getMe = async (): Promise<User | null> => {
   try {
-    const { data } = await axios.get<User>("/api/auth/session");
+    const { data } = await NextServer.get<User>('/auth/session');
     return data;
   } catch {
     return null;
@@ -21,22 +23,22 @@ export const getMe = async (): Promise<User | null> => {
 };
 
 export async function getCurrentUser(): Promise<User> {
-  const { data } = await NextServer.get<User>("/api/users/current");
+  const { data } = await NextServer.get<User>('/users/current');
   return data;
 }
 
 export async function updateUser(userData: UpdateUserPayload): Promise<User> {
-  const { data } = await NextServer.patch<User>("/api/users/current", userData);
+  const { data } = await NextServer.patch<User>('/users/current', userData);
   return data;
 }
 
 export async function uploadAvatar(file: File): Promise<{ avatarUrl: string }> {
   const formData = new FormData();
-  formData.append("avatar", file);
+  formData.append('avatar', file);
 
   const { data } = await NextServer.patch<{ avatarUrl: string }>(
-    "/api/users/avatar",
-    formData,
+    '/users/avatar',
+    formData
   );
 
   return data;

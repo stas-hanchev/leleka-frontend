@@ -18,7 +18,7 @@ export const createNote = async (
     categories: values.categories,
     text: values.text,
   };
-  const response = await NextServer.post('/api/diaries', dataForBackend);
+  const response = await NextServer.post('/diaries', dataForBackend);
   return response.data;
 };
 
@@ -27,18 +27,15 @@ export const updateNote = async (
   note: NoteDiaryProps
 ): Promise<DiaryNote> => {
   console.log(note);
-  const response = await NextServer.patch<DiaryNote>(
-    `/api/diaries/${id}`,
-    note
-  );
+  const response = await NextServer.patch<DiaryNote>(`/diaries/${id}`, note);
   return response.data;
 };
 
 export const getNotes = async (): Promise<FetchNotesResponse> => {
-  const response = await NextServer.get('/api/diaries');
+  const response = await NextServer.get('/diaries');
   return response;
 };
 export const deleteNote = async (id: string): Promise<void> => {
-  const response = await NextServer.delete(`/api/diaries/${id}`);
+  const response = await NextServer.delete(`/diaries/${id}`);
   return response.data;
 };
