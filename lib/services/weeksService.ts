@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { BabyDevelopmentData, MomBodyData } from '@/types/weeks';
 
-const API_URL = 'http://localhost:3050/api/weeks';
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/weeks`;
+
+axios.defaults.withCredentials = true;
 
 export const getBabyDevelopment = async (
   weekNumber: number

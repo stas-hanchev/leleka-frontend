@@ -2,6 +2,8 @@ import axios from "axios";
 import { NextServer } from "./api";
 import type { User, UpdateUserPayload } from "@/types/user";
 
+axios.defaults.withCredentials = true;
+
 export const checkSession = async (): Promise<boolean> => {
   try {
     await axios.get("/api/auth/session");
