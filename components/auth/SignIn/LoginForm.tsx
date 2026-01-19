@@ -33,21 +33,15 @@ export default function LoginForm() {
     { setSubmitting }: FormikHelpers<FormValues>
   ) => {
     try {
-      const { data } = await api.post<User>(
-        '/auth/login',
-        values
-      );
+      const { data } = await api.post<User>('/auth/login', values);
 
       setUser(data);
-     
 
       toast.success('Вхід успішний! Вітаємо 👋');
       router.push('/');
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        toast.error(
-          error.response?.data?.error || 'Невірний email або пароль'
-        );
+        toast.error(error.response?.data?.error || 'Невірний email або пароль');
       } else {
         toast.error('Помилка входу');
       }
@@ -63,12 +57,14 @@ export default function LoginForm() {
           <div className={styles.logoContainer}>
             <div className={styles.logoWrapper}>
               <div className={styles.logo}>
-                <svg width="31" height="30">
-                  <use href="/icon-sprite.svg#icon-logo" />
-                </svg>
-                <svg width="61" height="13">
-                  <use href="/icon-sprite.svg#icon-leleka" />
-                </svg>
+                <Link href="/" className={styles.logo}>
+                  <svg width="31" height="30">
+                    <use href="/icon-sprite.svg#icon-logo" />
+                  </svg>
+                  <svg width="61" height="13">
+                    <use href="/icon-sprite.svg#icon-leleka" />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>
@@ -92,9 +88,7 @@ export default function LoginForm() {
                       disabled={isSubmitting}
                       placeholder="hello@leleka.com"
                       className={`${styles.input} ${
-                        errors.email && touched.email
-                          ? styles.inputError
-                          : ''
+                        errors.email && touched.email ? styles.inputError : ''
                       }`}
                     />
                     <ErrorMessage

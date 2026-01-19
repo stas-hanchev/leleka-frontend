@@ -20,9 +20,7 @@ interface FormValues {
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Обов'язкове поле"),
-  email: Yup.string()
-    .email('Некоректний email')
-    .required("Обов'язкове поле"),
+  email: Yup.string().email('Некоректний email').required("Обов'язкове поле"),
   password: Yup.string()
     .min(8, 'Мінімум 8 символів')
     .required("Обов'язкове поле"),
@@ -37,10 +35,7 @@ export default function RegisterForm() {
     { setSubmitting }: FormikHelpers<FormValues>
   ) => {
     try {
-      const { data } = await api.post<User>(
-        '/auth/register',
-        values
-      );
+      const { data } = await api.post<User>('/auth/register', values);
 
       setUser(data);
 
@@ -51,9 +46,7 @@ export default function RegisterForm() {
         if (error.response?.status === 400) {
           toast.error('Цей email вже зареєстрований');
         } else {
-          toast.error(
-            error.response?.data?.error || 'Помилка реєстрації'
-          );
+          toast.error(error.response?.data?.error || 'Помилка реєстрації');
         }
       } else {
         toast.error('Помилка реєстрації');
@@ -70,12 +63,14 @@ export default function RegisterForm() {
           <div className={styles.logoContainer}>
             <div className={styles.logoWrapper}>
               <div className={styles.logo}>
-                <svg width="31" height="30">
-                  <use href="/icon-sprite.svg#icon-logo" />
-                </svg>
-                <svg width="61" height="13">
-                  <use href="/icon-sprite.svg#icon-leleka" />
-                </svg>
+                <Link href="/" className={styles.logo}>
+                  <svg width="31" height="30">
+                    <use href="/icon-sprite.svg#icon-logo" />
+                  </svg>
+                  <svg width="61" height="13">
+                    <use href="/icon-sprite.svg#icon-leleka" />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>
@@ -139,9 +134,7 @@ export default function RegisterForm() {
                       disabled={isSubmitting}
                       placeholder="********"
                       className={`${styles.input} ${
-                        errors.password &&
-                        touched.password &&
-                        submitCount > 0
+                        errors.password && touched.password && submitCount > 0
                           ? styles.inputError
                           : ''
                       }`}
