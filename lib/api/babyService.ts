@@ -47,7 +47,7 @@ export const getBabyData = async (
       headers: { Accept: "application/json" },
       withCredentials: isAuth,
     });
-
+    console.log('!!! Endpoint ', endpoint, ' Response ', res);
     return res.data;
   } catch (error) {
     console.error("Помилка при отриманні даних з бекенду:", error);
