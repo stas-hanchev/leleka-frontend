@@ -2,22 +2,26 @@ import { cookies } from "next/headers";
 import { lehlekaApi } from "../api";
 import { NextResponse } from "next/server";
 import axios from "axios";
-
 import { NextRequest } from "next/server";
-import { parse } from "cookie";
 import { isAxiosError } from "axios";
 import { logErrorResponse } from "../_utils/utils";
+import { refreshTokenCookies } from "../_utils/refreshTokenCookies";
+import { setCookiesToResponse } from "../_utils/setCookiesToResponse";
 
 export async function GET(req: Request) {
   try {
     const cookieStore = await cookies();
-    const { data } = await lehlekaApi.get("/diaries/", {
+    const setCookie = await refreshTokenCookies();
+    const cookie = setCookie ? setCookie.join(',') : cookieStore.toString(); 
+
+
+    const apiRes = await lehlekaApi.get("/diaries/", {
       headers: {
-        Cookie: cookieStore.toString(),
+        Cookie: cookie,
       },
     });
-
-    return NextResponse.json(data);
+    const response = setCookie ? setCookiesToResponse(setCookie, NextResponse.json(apiRes.data)) : NextResponse.json(apiRes.data);
+    return response;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       return NextResponse.json(err.response?.data ?? { error: err.message }, {
@@ -31,16 +35,18 @@ export async function GET(req: Request) {
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
+    const setCookie = await refreshTokenCookies();
+    const cookie = setCookie ? setCookie.join(',') : cookieStore.toString(); 
 
     const body = await request.json();
 
-    const res = await lehlekaApi.post('/diaries', body, {
+    const apiRes = await lehlekaApi.post('/diaries', body, {
       headers: {
-        Cookie: cookieStore.toString(),
+        Cookie: cookie,
       },
     });
-
-    return NextResponse.json(res.data, { status: res.status });
+    const response = setCookie ? setCookiesToResponse(setCookie, NextResponse.json(apiRes.data)) : NextResponse.json(apiRes.data);
+    return response;
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

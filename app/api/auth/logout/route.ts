@@ -3,22 +3,22 @@ import { lehlekaApi } from '../../api';
 import { cookies } from 'next/headers';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../../_utils/utils';
+import { refreshTokenCookies } from '../../_utils/refreshTokenCookies';
 
 export async function POST() {
   try {
     const cookieStore = await cookies();
+    const setCookie = await refreshTokenCookies();
+    const cookie = setCookie ? setCookie.join(',') : cookieStore.toString(); 
 
-    const accessToken = cookieStore.get('accessToken')?.value;
-    const refreshToken = cookieStore.get('refreshToken')?.value;
-
-    await lehlekaApi.post('auth/logout', null, {
+    const apiRes = await lehlekaApi.post('auth/logout', null, {
       headers: {
-        Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}`,
+        Cookie: cookie,
       },
     });
 
     cookieStore.delete('accessToken');
-    cookieStore.delete('refreshToken');
+    cookieStore.delete('refreshToken');    
 
     return NextResponse.json({ message: 'Logged out successfully' }, { status: 200 });
   } catch (error) {

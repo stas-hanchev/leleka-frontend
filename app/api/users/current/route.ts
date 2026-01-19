@@ -2,19 +2,24 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import axios from 'axios';
 import { lehlekaApi } from '../../api';
+import { refreshTokenCookies } from '../../_utils/refreshTokenCookies';
+import { setCookiesToResponse } from '../../_utils/setCookiesToResponse';
 
 export async function PATCH(req: Request) {
   try {
     const cookieStore = await cookies();
+    const setCookie = await refreshTokenCookies();
+    const cookie = setCookie ? setCookie.join(',') : cookieStore.toString(); 
+    
     const body = await req.json();
 
-    const { data } = await lehlekaApi.patch('/users/current', body, {
+    const apiRes = await lehlekaApi.patch('/users/current', body, {
       headers: {
-        Cookie: cookieStore.toString(),
+        Cookie: cookie,
       },
     });
-
-    return NextResponse.json(data);
+    const response = setCookie ? setCookiesToResponse(setCookie, NextResponse.json(apiRes.data)) : NextResponse.json(apiRes.data);
+    return response;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       return NextResponse.json(err.response?.data ?? { error: err.message }, {
@@ -28,14 +33,16 @@ export async function PATCH(req: Request) {
 export async function GET(req: Request) {
   try {
     const cookieStore = await cookies();
-    const { data } = await lehlekaApi.get('/users/current',
-      {
-        headers: {
-        Cookie: cookieStore.toString(),
-      }
-      });
+    const setCookie = await refreshTokenCookies();
+    const cookie = setCookie ? setCookie.join(',') : cookieStore.toString(); 
 
-    return NextResponse.json(data);
+    const apiRes = await lehlekaApi.get('/users/current', {
+      headers: {
+        Cookie: cookie,
+      }
+    });
+    const response = setCookie ? setCookiesToResponse(setCookie, NextResponse.json(apiRes.data)) : NextResponse.json(apiRes.data);
+    return response;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       return NextResponse.json(

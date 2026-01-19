@@ -26,8 +26,7 @@ export const checkServerSession = async () => {
   return res;
 };
 
-
-export const serverApi = axios.create({
-  baseURL: 'http://localhost:3050/api/',
-  withCredentials: true,
-});
+// export const serverApi = axios.create({
+//   baseURL: 'http://localhost:3050/api/',
+//   withCredentials: true,
+// });

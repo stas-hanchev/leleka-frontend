@@ -3,6 +3,8 @@ import { lehlekaApi } from '../../../api';
 import { cookies } from 'next/headers';
 import { logErrorResponse } from '../../../_utils/utils';
 import { isAxiosError } from 'axios';
+import { refreshTokenCookies } from '@/app/api/_utils/refreshTokenCookies';
+import { setCookiesToResponse } from '@/app/api/_utils/setCookiesToResponse';
 
 type Props = {
   params: Promise<{ taskId: string }>;
@@ -11,18 +13,22 @@ type Props = {
 export async function PATCH(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
+    const setCookie = await refreshTokenCookies();
+    const cookie = setCookie ? setCookie.join(',') : cookieStore.toString(); 
+    
+
     const { taskId } = await params;
     const body = await request.json();
 
     const payload = typeof body === 'boolean' ? { isDone: body } : body;
 
-    const res = await lehlekaApi.patch(`/tasks/${taskId}/status`, payload, {
+    const apiRes = await lehlekaApi.patch(`/tasks/${taskId}/status`, payload, {
       headers: {
-        Cookie: cookieStore.toString(),
+        Cookie: cookie,
       },
     });
-
-    return NextResponse.json(res.data, { status: res.status });
+    const response = setCookie ? setCookiesToResponse(setCookie, NextResponse.json(apiRes.data)) : NextResponse.json(apiRes.data);
+    return response;
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

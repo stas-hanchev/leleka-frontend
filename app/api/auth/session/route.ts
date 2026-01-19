@@ -8,27 +8,36 @@ export async function GET() {
   try {
     const cookieStore = await cookies();
 
-    const accessToken = cookieStore.get('accessToken')?.value;
+    const refreshToken = cookieStore.get('refreshToken')?.value;
 
-    if (!accessToken) {
+    if (!refreshToken) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
 
-    // Запит до бекенду "who am I"
-    const apiRes = await lehlekaApi.get('auth/me', {
+    const apiRes = await lehlekaApi.post('/auth/refresh', {}, {
       headers: {
-        Cookie: `accessToken=${accessToken}`,
+        Cookie: cookieStore.toString(),
       },
     });
 
-    return NextResponse.json(apiRes.data, { status: 200 });
+    const response = NextResponse.json(apiRes.data, { status: 200 });
+    const setCookie = apiRes.headers['set-cookie'];
+
+    if (setCookie) {
+        const cookiesArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+        cookiesArray.forEach((cookie) => {
+          response.headers.append('set-cookie', cookie);
+        });
+    }
+    
+    return response;
   } catch (error) {
     if (isAxiosError(error)) {
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: error.message || 'Unauthorized' },
         { status: 401 }
       );
     }

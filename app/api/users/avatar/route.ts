@@ -5,20 +5,27 @@ import { lehlekaApi } from "../../api";
 import { cookies } from "next/headers";
 import { logErrorResponse } from "../../_utils/utils";
 import { isAxiosError } from "axios";
+import { refreshTokenCookies } from "../../_utils/refreshTokenCookies";
+import { setCookiesToResponse } from "../../_utils/setCookiesToResponse";
 
 export async function PATCH(request: Request) {
   try {
     const cookieStore = await cookies();
+
+    const setCookie = await refreshTokenCookies();
+    const cookie = setCookie ? setCookie.join(',') : cookieStore.toString(); 
+    
+    
     const formData = await request.formData();
 
-    const res = await lehlekaApi.patch("/users/avatar", formData, {
+    const apiRes = await lehlekaApi.patch("/users/avatar", formData, {
       headers: {
-        Cookie: cookieStore.toString(),
+        Cookie: cookie,
         "Content-Type": "multipart/form-data",
       },
     });
-
-    return NextResponse.json(res.data, { status: res.status });
+    const response = setCookie ? setCookiesToResponse(setCookie, NextResponse.json(apiRes.data)) : NextResponse.json(apiRes.data);
+    return response;
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
