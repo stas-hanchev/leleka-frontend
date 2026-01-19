@@ -14,6 +14,7 @@ import { OnboardingSchema, OnboardingFormValues } from '../../types/onboarding';
 import styles from './OnboardingForm.module.css';
 import { UpdateUserResponse, UploadAvatarResponse, User } from '@/types/user';
 import { useAuthStore } from '@/lib/store/authStore';
+import Link from 'next/link';
 
 registerLocale('uk', uk);
 
@@ -132,12 +133,14 @@ export const OnboardingForm: React.FC = () => {
           <div className={styles.logoContainer}>
             <div className={styles.logoWrapper}>
               <div className={styles.logo}>
-                <svg width="31" height="30">
-                  <use href="/icon-sprite.svg#icon-logo" />
-                </svg>
-                <svg width="61" height="13">
-                  <use href="/icon-sprite.svg#icon-leleka" />
-                </svg>
+                <Link href="/" className={styles.logo}>
+                  <svg width="31" height="30">
+                    <use href="/icon-sprite.svg#icon-logo" />
+                  </svg>
+                  <svg width="61" height="13">
+                    <use href="/icon-sprite.svg#icon-leleka" />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>
