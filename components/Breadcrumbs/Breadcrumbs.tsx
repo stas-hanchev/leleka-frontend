@@ -21,13 +21,20 @@ const Arrow = () => (
 
 const HIDE_ON_PATHS = new Set(['/profile/edit']);
 
+const getBreadcrumbHref = (node: string, index: number, nodes: string[]) => {
+  if (node === 'journey') {
+    const weekFromUrl = nodes[index + 1];
+    return weekFromUrl ? `/journey/${weekFromUrl}` : '/journey';
+  }
+
+  return `/${nodes.slice(0, index + 1).join('/')}`;
+};
+
 const Breadcrumbs = () => {
   const pathname = usePathname();
-
   const { selectedNote } = useSelectedNoteStore();
 
   if (!pathname) return null;
-
   if (HIDE_ON_PATHS.has(pathname)) return null;
   if (pathname.startsWith('/auth')) return null;
 
@@ -49,7 +56,7 @@ const Breadcrumbs = () => {
           const href =
             pathname === '/'
               ? '/'
-              : `/${nodesForRender.slice(0, index + 1).join('/')}`;
+              : getBreadcrumbHref(node, index, nodesForRender);
 
           const label =
             isLast && selectedNote

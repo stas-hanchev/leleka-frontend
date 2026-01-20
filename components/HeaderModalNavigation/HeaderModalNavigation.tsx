@@ -1,10 +1,10 @@
-import { createPortal } from "react-dom";
-import css from "./HeaderModalNavigation.module.css";
-import { useEffect } from "react";
-import { useAuthStore } from "@/lib/store/authStore";
-import UserBar from "../UserBar/UserBar";
-import { ModalLink } from "../ModalLink/ModalLink";
-import { getJourneyHref } from "@/lib/getJourneyHref/getJourneyHref";
+import { createPortal } from 'react-dom';
+import css from './HeaderModalNavigation.module.css';
+import { useEffect } from 'react';
+import { useAuthStore } from '@/lib/store/authStore';
+import UserBar from '../UserBar/UserBar';
+import { ModalLink } from '../ModalLink/ModalLink';
+import { getJourneyHref } from '@/lib/getJourneyHref/getJourneyHref';
 
 interface HeaderModalNavigationProps {
   onClose: () => void;
@@ -23,16 +23,17 @@ export default function HeaderModalNavigation({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         onClose();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
     };
   }, [onClose]);
 
@@ -171,7 +172,7 @@ export default function HeaderModalNavigation({
         </div>
         <div className={css.bottom_modal_container}>
           {isAuthenticated ? (
-            <UserBar user={user!}/>
+            <UserBar user={user!} />
           ) : (
             <div className={css.btns_container}>
               <ModalLink
