@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import styles from './DiaryEntryDetails.module.css';
 import { useRouter } from 'next/navigation';
@@ -10,6 +9,8 @@ import type { DiaryNote } from '@/types/diary';
 import AddDiaryEntryModal from '@/components/diary.modal/AddDiaryEntryModal';
 import { useSelectedNoteStore } from '@/lib/store/selectedNoteStore';
 import { useNoteModalStore } from '@/lib/store/modalNoteStore';
+import { useState } from 'react';
+import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
 
 type Props = {
   _id: string | null;
@@ -33,7 +34,7 @@ export default function DiaryEntryDetails({
   entry,
 }: Props) {
   const qc = useQueryClient();
-
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { isOpen, openNoteModal, closeNoteModal } = useNoteModalStore();
   const { selectedNote, setSelectedNote } = useSelectedNoteStore();
   const router = useRouter();
@@ -91,11 +92,7 @@ export default function DiaryEntryDetails({
             <button
               type="button"
               className={`${styles.iconBtn} ${styles.danger}`}
-              onClick={() => {
-                const ok = window.confirm('Видалити запис?');
-                if (ok) delMutation.mutate(entry._id);
-                router.push('/diary');
-              }}
+              onClick={() => setIsDeleteModalOpen(true)}
               disabled={delMutation.isPending}
             >
               <svg width="17" height="19">
@@ -119,6 +116,18 @@ export default function DiaryEntryDetails({
           </div>
         )}
       </div>
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Ви точно хочете видалити запис?"
+        confirmButtonText="Видалити"
+        cancelButtonText="Скасувати"
+        onCancel={() => setIsDeleteModalOpen(false)}
+        onConfirm={async () => {
+          await delMutation.mutateAsync(entry._id);
+          setIsDeleteModalOpen(false);
+          router.push('/diary');
+        }}
+      />
     </section>
   );
 }
