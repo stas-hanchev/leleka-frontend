@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { FC, useEffect } from "react";
-import { createPortal } from "react-dom";
-import styles from "./ConfirmationModal.module.css";
-import { ConfirmationModalProps } from "@/types/confirmationModal";
+import { FC, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import styles from './ConfirmationModal.module.css';
+import { ConfirmationModalProps } from '@/types/confirmationModal';
 
 export const ConfirmationModal: FC<ConfirmationModalProps> = ({
   isOpen,
@@ -17,17 +17,17 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
     if (!isOpen) return;
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onCancel();
       }
     };
 
-    document.addEventListener("keydown", handleEscape);
-    document.body.style.overflow = "hidden";
+    document.addEventListener('keydown', handleEscape);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "";
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = '';
     };
   }, [isOpen, onCancel]);
 
