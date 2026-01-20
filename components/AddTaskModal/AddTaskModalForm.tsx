@@ -81,6 +81,7 @@ export const AddTaskForm: React.FC<AddTaskFormProps> = ({
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.title}
+          placeholder="Прийняти вітаміни"
         />
         {formik.touched.title && formik.errors.title && (
           <span className={styles.error}>{formik.errors.title}</span>
