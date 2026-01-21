@@ -46,11 +46,7 @@
 }
 
 .closeButton:hover {
-  background: #fff4f6;
-}
-
-.closeButton:focus {
-  outline: 2px solid #fff4f6;
+  background: var(--opacity-neutral-darkest-5);
 }
 
 .logo_link {

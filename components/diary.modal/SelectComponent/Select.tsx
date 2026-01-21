@@ -22,15 +22,17 @@ const selectStyles = <Option, IsMulti extends boolean>(
   control: (base, { menuIsOpen, isFocused }) => ({
     ...base,
     padding: '7px 12px',
-    backgroundColor: '#f2f2f2',
-    borderRadius: menuIsOpen ? '12px 12px 0 0' : '12px',
-    borderColor: hasError
-      ? '#c60000'
-      : menuIsOpen
-      ? 'rgba(0, 0, 0, 0.15)'
-      : 'transparent',
-    boxShadow: isFocused ? 'inset 0 0 0 2px #ffdae0' : 'none',
     minHeight: '42px',
+
+    backgroundColor: 'var(--opacity-neutral-darkest-5)',
+
+    borderRadius: menuIsOpen ? '12px 12px 0 0' : '12px',
+
+    border: isFocused
+      ? '2px solid var(--color-scheme-accent)'
+      : '2px solid transparent',
+
+    boxShadow: 'none',
   }),
 
   placeholder: (base) => ({
@@ -103,9 +105,10 @@ function Checkbox({ isChecked }: { isChecked: boolean }) {
   );
 }
 
-export default function CustomSelect<
-  Option,
-  IsMulti extends boolean = false>({ hasError, ...props }: CustomSelectProps<Option, IsMulti>) {
+export default function CustomSelect<Option, IsMulti extends boolean = false>({
+  hasError,
+  ...props
+}: CustomSelectProps<Option, IsMulti>) {
   return (
     <Select<Option, IsMulti, GroupBase<Option>>
       {...props}
@@ -141,7 +144,9 @@ export default function CustomSelect<
         ),
 
         Option: (optionProps) => (
-          <components.Option<Option, IsMulti, GroupBase<Option>> {...optionProps}>
+          <components.Option<Option, IsMulti, GroupBase<Option>>
+            {...optionProps}
+          >
             {props.isMulti && <Checkbox isChecked={optionProps.isSelected} />}
             <span>{optionProps.label}</span>
           </components.Option>

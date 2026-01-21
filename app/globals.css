@@ -12,6 +12,20 @@
   --color-neutral: #7f7f7f;
   --color-neutral-dark: #4c4c4c;
   --color-neutral-darker: #191919;
+  --input-bg: var(--opacity-neutral-darkest-5);
+
+  --opacity-neutral-darkest-5: rgba(0, 0, 0, 0.05);
+  --input-bg: rgba(0, 0, 0, 0.05);
+  --input-text: #000;
+  --input-border-focus: #fff4f6;
+
+  --input-bg: #f6f6f6;
+  --input-text: #000;
+  --input-border-focus: #ffdae0;
+  --control-focus-border: var(--color-oasis);
+  --input-border: transparent;
+  --input-border-error: #c60000;
+  --input-shadow-focus: 0 0 0 2px rgba(255, 244, 246, 0.6);
 
   --opacity-transparent: rgba(255, 255, 255, 0);
   --opacity-neutral-darkest-5: rgba(0, 0, 0, 0.05);
@@ -76,6 +90,14 @@ body[data-theme='girl'] {
   --color-scheme-foreground: var(--color-pastel-pink-light);
   --color-scheme-accent: var(--color-pastel-pink);
   --color-scheme-accent-dark: var(--color-pastel-pink-dark);
+  --input-bg: #fff0f5;
+  --input-text: #000;
+  --input-border-focus: #ffb6c1;
+  --input-border: transparent;
+  --input-border-focus: #ffdae0;
+  --input-border-error: #c60000;
+  --input-shadow-focus: 0 0 0 2px rgba(255, 218, 224, 0.6);
+  --control-focus-border: var(--color-pastel-pink);
 }
 
 body[data-theme='boy'] {
@@ -83,6 +105,15 @@ body[data-theme='boy'] {
   --color-scheme-foreground: var(--color-french-pass-light);
   --color-scheme-accent: var(--color-french-pass);
   --color-scheme-accent-dark: var(--color-french-pass-dark);
+  --input-bg: #eef7ff;
+  --input-text: #000;
+  --input-border-focus: #9ecbff;
+  --control-focus-border: var(--color-french-pass);
+  --input-bg: #f0f6ff;
+  --input-border: transparent;
+  --input-border-focus: #d6e4ff;
+  --input-border-error: #c60000;
+  --input-shadow-focus: 0 0 0 2px rgba(214, 228, 255, 0.6);
 }
 
 body {

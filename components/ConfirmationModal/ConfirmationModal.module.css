@@ -9,8 +9,6 @@
   z-index: 99999;
 }
 
-/* Mobile first */
-
 .modal {
   position: relative;
   width: 100%;
@@ -77,11 +75,11 @@
 }
 .cancelButton:hover,
 .cancelButton:focus {
-  background-color: #fff4f6;
+  background: var(--color-scheme-foreground-alt);
   border-bottom: 4px solid var(--Opacity-Neutral-Darkest-15, #00000026);
 }
 .cancelButton:active {
-  background-color: #ffcbd3;
+  background: var(--color-scheme-foreground-alt);
 }
 
 .confirmButton {
@@ -97,7 +95,6 @@
 .confirmButton:active {
   background-color: #b2b2b2;
 }
-/* Tablet */
 
 @media (min-width: 768px) {
   .modal {
@@ -115,13 +112,6 @@
     flex-direction: row;
     justify-content: center;
   }
-
-  /* .cancelButton,
-  .confirmButton {
-  }
-} */
-
-  /* Desktop */
 
   @media (min-width: 1440px) {
     .modal {

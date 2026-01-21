@@ -53,17 +53,31 @@
 }
 
 .textInputTitle {
-  border: 2px solid rgba(255, 255, 255, 0);
+  background: var(--opacity-neutral-darkest-5);
+
+  color: var(--input-text);
+  border: 1px solid transparent;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
   border-radius: 12px;
   padding: 8px 12px;
   width: 100%;
   height: 37px;
-  background-color: rgba(0, 0, 0, 0.05);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-  outline-color: #ffdae0;
   font-family: 'Lato', sans-serif;
+}
+
+.textInputTextArea:focus {
+  border-color: var(--input-border-focus);
+  border: 2px solid var(--color-scheme-accent);
+}
+
+.textInputTitle:focus {
+  border-color: var(--input-border-focus);
+  border: 2px solid var(--color-scheme-accent);
 }
 
 @media only screen and (min-width: 1440px) {
@@ -74,16 +88,21 @@
 }
 
 .textInputTextArea {
-  border: 1px solid rgba(255, 255, 255, 0);
+  background: var(--opacity-neutral-darkest-5);
+
+  color: var(--input-text);
+  border: 1px solid transparent;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
   border-radius: 12px;
   padding: 12px;
   width: 100%;
   height: 250px;
-  background-color: rgba(0, 0, 0, 0.05);
+
   resize: none;
   font-weight: 400;
   font-size: 14px;
-  outline-color: #ffdae0;
   font-family: 'Lato', sans-serif;
 }
 
@@ -108,7 +127,7 @@
   line-height: 1.6;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border-bottom: 4px solid #ffcbd3;
+  border-bottom: 4px solid var(--color-scheme-accent);
   border-radius: 100px;
   padding: 10px 24px;
   width: 100%;
@@ -120,17 +139,17 @@
 .button:hover,
 .button:focus {
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
-  background-color: #fff4f6;
+  background: var(--color-scheme-foreground-alt);
 }
 
 .button:active {
-  background-color: #ffcbd3;
+  background: var(--color-scheme-foreground-alt);
 }
 
 .button:disabled {
   opacity: 0.3;
   cursor: not-allowed;
-  background-color: #ffdae0;
+  background: var(--color-scheme-foreground-alt);
 }
 
 @media only screen and (min-width: 768px) {

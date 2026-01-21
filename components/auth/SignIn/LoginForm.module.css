@@ -110,7 +110,6 @@
 .error {
   color: var(--color-red);
   font-size: 12px;
-  margin-top: 4px;
 }
 
 .inputError {
