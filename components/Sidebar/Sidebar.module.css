@@ -131,17 +131,17 @@
   background: var(--color-scheme-foreground);
   border-radius: 100px;
   padding: 10px 24px;
-  /* width: 268px; */
+
   height: 42px;
 }
 
 .register_btn:hover {
-  background: #fff4f6;
+  background: var(--color-scheme-foreground);
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
 }
 
 .register_btn:active {
-  background: #ffcbd3;
+  background: var(--color-scheme-foreground);
   border-bottom: none;
 }
 
