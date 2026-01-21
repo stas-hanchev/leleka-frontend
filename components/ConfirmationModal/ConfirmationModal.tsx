@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './ConfirmationModal.module.css';
 import { ConfirmationModalProps } from '@/types/confirmationModal';
@@ -13,6 +13,8 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -28,10 +30,22 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
     return () => {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = '';
+      setIsSubmitting(false);
     };
   }, [isOpen, onCancel]);
 
   if (!isOpen) return null;
+
+  const handleConfirm = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      await onConfirm();
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return createPortal(
     <div className={styles.backdrop} onClick={onCancel}>
@@ -46,6 +60,7 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
           className={styles.closeButton}
           onClick={onCancel}
           aria-label="Close modal"
+          disabled={isSubmitting}
         >
           <svg width="13.5" height="13.5" aria-hidden="true">
             <use href="/icon-sprite.svg#icon-close" />
@@ -59,6 +74,7 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
             type="button"
             className={styles.cancelButton}
             onClick={onCancel}
+            disabled={isSubmitting}
           >
             {cancelButtonText}
           </button>
@@ -66,9 +82,10 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
           <button
             type="button"
             className={styles.confirmButton}
-            onClick={onConfirm}
+            onClick={handleConfirm}
+            disabled={isSubmitting}
           >
-            {confirmButtonText}
+            {isSubmitting ? 'Завантаження...' : confirmButtonText}
           </button>
         </div>
       </div>

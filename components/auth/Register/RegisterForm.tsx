@@ -34,6 +34,8 @@ export default function RegisterForm() {
     values: FormValues,
     { setSubmitting }: FormikHelpers<FormValues>
   ) => {
+    setSubmitting(true);
+
     try {
       const { data } = await api.post<User>('/auth/register', values);
 
