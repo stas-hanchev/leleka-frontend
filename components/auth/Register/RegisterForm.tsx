@@ -41,7 +41,7 @@ export default function RegisterForm() {
 
       setUser(data);
 
-      toast.success('Реєстрація успішна 🎉');
+      // toast.success('Реєстрація успішна 🎉');
       router.push('/profile/edit');
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
