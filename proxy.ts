@@ -9,17 +9,14 @@ const privateRoutes = [
   '/users/avatar',
   '/weeks/dashboard',
   '/weeks/',
-  '/diary',
-  '/journey/:path*',
-  '/profile',
 ];
 
 const publicRoutes = [
-  '/auth/register',
-  '/auth/login',
-  '/auth/refresh',
-  '/auth/request-reset-email',
-  '/auth/reset-password',
+  "/auth/register",
+  "/auth/login",
+  "/auth/refresh",
+  "/auth/request-reset-email",
+  "/auth/reset-password",
 ];
 
 export async function proxy(request: NextRequest) {
@@ -80,12 +77,8 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/',
-    '/diary',
-    '/journey/:path*',
-    '/profile',
     '/auth/:path*',
-    '/diary/:path*',
+    '/diaries/:path*',
     '/tasks/:path*',
     '/users/current',
     '/users/avatar',
